@@ -242,6 +242,8 @@
 
         // --- Main Application Logic ---
         onAuthStateChanged(auth, async (user) => {
+            isAdmin = sessionStorage.getItem('isAdmin') === 'true';
+
             await loadUserProfiles();
 
             if (user) {
@@ -249,10 +251,6 @@
                 const orRoomsCollectionRef = collection(db, `artifacts/${appId}/public/data/or_rooms`);
                 const dailyRolesDocRef = doc(db, `artifacts/${appId}/public/data/daily_assignments`, 'roles');
 
-                if (user.isAnonymous) {
-                    isAdmin = false;
-                }
-                
                 await Promise.all([
                     seedInitialData(orRoomsCollectionRef),
                     setupDailyRoles(dailyRolesDocRef)
@@ -263,6 +261,7 @@
                 updateUIMode(user); 
             } else {
                 isAdmin = false;
+                sessionStorage.removeItem('isAdmin');
                 currentUserProfile = null;
                 updateUIMode(null);
             }
