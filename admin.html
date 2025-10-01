@@ -99,6 +99,16 @@
                         </ul>
                     </div>
                 </div>
+
+                <!-- OR Room List -->
+                <div class="mt-8">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-3">Manage Operating Rooms</h2>
+                    <div class="bg-white rounded-lg shadow-sm">
+                        <ul id="or-list" class="divide-y divide-gray-200">
+                            <!-- OR Rooms will be rendered here -->
+                        </ul>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
@@ -106,7 +116,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, doc, setDoc, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, collection, doc, setDoc, getDocs, onSnapshot, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // --- Firebase Config ---
         const firebaseConfig = {
@@ -118,6 +128,7 @@
           appId: "1:53351553251:web:956b092846ffa331760dd6",
           measurementId: "G-0PRB28VZ2C"
         };
+        const appId = firebaseConfig.appId;
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
@@ -138,16 +149,19 @@
         const addProfileButton = document.getElementById('add-profile-button');
         const addProfileError = document.getElementById('add-profile-error');
         const profileList = document.getElementById('profile-list');
+        const orList = document.getElementById('or-list');
 
         // --- State ---
         let isAdmin = false;
         const ADMIN_PIN = "1234";
+        let usersCache = {};
 
         // --- Logic ---
         if (sessionStorage.getItem('isAdmin') === 'true') {
             isAdmin = true;
             adminContent.classList.remove('hidden');
             loadProfiles();
+            loadORRooms();
         } else {
             loginModal.classList.remove('hidden');
         }
@@ -159,6 +173,7 @@
                 loginModal.classList.add('hidden');
                 adminContent.classList.remove('hidden');
                 loadProfiles();
+                loadORRooms();
             } else {
                 errorMessage.textContent = 'Incorrect PIN.';
             }
@@ -191,7 +206,8 @@
                 await setDoc(userRef, {
                     firstName: firstName,
                     lastName: lastName,
-                    communicationPreference: selectedPrefs
+                    communicationPreference: selectedPrefs,
+                    status: "On Duty" // Default status for new users
                 });
 
                 uidInput.value = '';
@@ -215,19 +231,24 @@
             profileList.innerHTML = '<li class="p-4">Loading...</li>';
             const usersCollection = collection(db, 'users');
             const snapshot = await getDocs(usersCollection);
+
+            usersCache = {};
             profileList.innerHTML = '';
+
             if (snapshot.empty) {
                 profileList.innerHTML = '<li class="p-4 text-center text-gray-500">No profiles created yet.</li>';
                 return;
             }
             snapshot.forEach(doc => {
                 const user = doc.data();
+                usersCache[doc.id] = user;
                 const li = document.createElement('li');
                 li.className = 'p-4 flex justify-between items-center';
                 const commPrefs = Array.isArray(user.communicationPreference) ? user.communicationPreference.join(', ') : user.communicationPreference;
                 li.innerHTML = `
                     <div>
                         <p class="font-semibold">${user.firstName} ${user.lastName}</p>
+                        <p class="text-sm text-gray-600">UID: ${doc.id}</p>
                         <p class="text-sm text-gray-600">Prefers: ${commPrefs}</p>
                     </div>
                     <div>
@@ -237,6 +258,77 @@
                 profileList.appendChild(li);
             });
         }
+
+        function loadORRooms() {
+            const orRoomsCollectionRef = collection(db, `artifacts/${appId}/public/data/or_rooms`);
+            orList.innerHTML = '<li class="p-4">Loading...</li>';
+
+            onSnapshot(orRoomsCollectionRef, (snapshot) => {
+                const rooms = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                rooms.sort((a, b) => a.order - b.order);
+                renderORRooms(rooms);
+            }, (error) => {
+                console.error("Error fetching room data:", error);
+                orList.innerHTML = '<li class="p-4 text-red-500">Error loading rooms.</li>';
+            });
+        }
+
+        function renderORRooms(rooms) {
+            orList.innerHTML = '';
+            if (rooms.length === 0) {
+                orList.innerHTML = '<li class="p-4 text-center text-gray-500">No operating rooms found.</li>';
+                return;
+            }
+
+            const providerOptions = '<option value="">-- Unassign --</option>' +
+                Object.entries(usersCache).map(([uid, user]) => {
+                    return `<option value="${uid}">${user.firstName} ${user.lastName}</option>`;
+                }).join('');
+
+            rooms.forEach(room => {
+                const li = document.createElement('li');
+                li.className = 'p-4 flex justify-between items-center';
+
+                const anesProfile = room.anesthesiologist ? usersCache[room.anesthesiologist] : null;
+                const anesName = anesProfile ? `${anesProfile.firstName} ${anesProfile.lastName}` : 'N/A';
+
+                const coveringProfile = room.coveringProvider ? usersCache[room.coveringProvider] : null;
+                const coveringName = coveringProfile ? `${coveringProfile.firstName} ${coveringProfile.lastName}` : 'None';
+
+                li.innerHTML = `
+                    <div>
+                        <p class="font-semibold">${room.roomName}</p>
+                        <p class="text-sm text-gray-600">Primary: ${anesName}</p>
+                        <p class="text-sm text-gray-600">Covering: <span class="font-medium">${coveringName}</span></p>
+                    </div>
+                    <div class="w-1/3">
+                        <label class="block text-xs font-medium text-gray-500 mb-1">Set Covering Provider</label>
+                        <select data-id="${room.id}" class="covering-provider-select p-2 border rounded-md w-full text-sm">
+                            ${providerOptions}
+                        </select>
+                    </div>
+                `;
+
+                const selectElement = li.querySelector('.covering-provider-select');
+                selectElement.value = room.coveringProvider || "";
+
+                orList.appendChild(li);
+            });
+        }
+
+        orList.addEventListener('change', async (event) => {
+            const select = event.target;
+            if (select.classList.contains('covering-provider-select')) {
+                const docId = select.dataset.id;
+                const newValue = select.value;
+                const docRef = doc(db, `artifacts/${appId}/public/data/or_rooms`, docId);
+                try {
+                    await updateDoc(docRef, { coveringProvider: newValue || "" });
+                } catch (error) {
+                    console.error("Error updating covering provider:", error);
+                }
+            }
+        });
     </script>
 </body>
 </html>
