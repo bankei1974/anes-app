@@ -71,27 +71,6 @@
     </style>
 </head>
 <body class="h-full">
-    <!-- Login Modal -->
-    <div id="login-modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 fade-in">
-        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
-            <div class="mt-3 text-center">
-                <h3 class="text-lg leading-6 font-medium text-gray-900">Admin Login</h3>
-                <div class="mt-2 px-7 py-3">
-                    <input type="password" id="password-input" class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none" placeholder="Enter PIN" autocomplete="off" />
-                    <p id="error-message" class="text-red-500 text-sm mt-2 h-4"></p>
-                </div>
-                <div class="items-center px-4 py-3">
-                    <button id="login-button" class="px-4 py-2 bg-blue-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
-                        Log In
-                    </button>
-                     <button id="cancel-login-button" class="mt-2 px-4 py-2 bg-gray-200 text-gray-800 text-base font-medium rounded-md w-full shadow-sm hover:bg-gray-300 focus:outline-none">
-                        Cancel
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Anesthesiologist Login Modal -->
     <div id="anesthesiologist-login-modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 fade-in">
         <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
@@ -125,7 +104,6 @@
                     <span id="user-display" class="hidden text-sm font-medium text-gray-700 mr-4"></span>
                     <div id="guest-view">
                         <button id="show-anes-login-button" class="px-3 py-1.5 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Provider Login</button>
-                        <button id="show-admin-login-button" class="ml-2 px-3 py-1.5 bg-gray-700 text-white text-sm font-medium rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">Admin</button>
                     </div>
                     <div id="logged-in-view" class="hidden items-center">
                         <a id="profile-link" href="./profile.html" class="hidden text-sm font-medium text-blue-600 hover:text-blue-800 mr-4">My Profile</a>
@@ -209,13 +187,6 @@
         const loadingIndicator = document.getElementById('loading-indicator');
         const activeList = document.getElementById('active-list');
         
-        const adminLoginModal = document.getElementById('login-modal');
-        const passwordInput = document.getElementById('password-input');
-        const adminLoginButton = document.getElementById('login-button');
-        const cancelAdminLoginButton = document.getElementById('cancel-login-button');
-        const showAdminLoginButton = document.getElementById('show-admin-login-button');
-        const adminErrorMessage = document.getElementById('error-message');
-
         const anesLoginModal = document.getElementById('anesthesiologist-login-modal');
         const anesEmailInput = document.getElementById('anes-email-input');
         const anesPasswordInput = document.getElementById('anes-password-input');
@@ -235,8 +206,6 @@
         const floatInput = document.getElementById('float-input');
 
         // --- State ---
-        let isAdmin = false;
-        const ADMIN_PIN = "1234"; 
         let usersCache = {};
         let currentUserProfile = null;
 
@@ -248,10 +217,6 @@
                 currentUserProfile = usersCache[user.uid] || null;
                 const orRoomsCollectionRef = collection(db, `artifacts/${appId}/public/data/or_rooms`);
                 const dailyRolesDocRef = doc(db, `artifacts/${appId}/public/data/daily_assignments`, 'roles');
-
-                if (user.isAnonymous) {
-                    isAdmin = false;
-                }
                 
                 await Promise.all([
                     seedInitialData(orRoomsCollectionRef),
@@ -262,7 +227,6 @@
                 listenForRoles(dailyRolesDocRef);
                 updateUIMode(user); 
             } else {
-                isAdmin = false;
                 currentUserProfile = null;
                 updateUIMode(null);
             }
@@ -561,14 +525,16 @@
         // --- UI Mode and Login Logic ---
         function updateUIMode(user) {
             const isProvider = user && !user.isAnonymous;
+            const isAdmin = currentUserProfile && currentUserProfile.isAdmin === true;
 
-            guestView.classList.toggle('hidden', isProvider || isAdmin);
-            loggedInView.classList.toggle('hidden', !isProvider && !isAdmin);
+            guestView.classList.toggle('hidden', isProvider);
+            loggedInView.classList.toggle('hidden', !isProvider);
             adminPanelLink.classList.toggle('hidden', !isAdmin);
             profileLink.classList.toggle('hidden', !isProvider || isAdmin);
 
             if (isProvider && currentUserProfile) {
-                userDisplay.textContent = `Welcome, ${currentUserProfile.firstName}`;
+                const welcomeName = currentUserProfile.firstName || 'User';
+                userDisplay.textContent = `Welcome, ${welcomeName}`;
                 userDisplay.classList.remove('hidden');
             } else {
                 userDisplay.textContent = '';
@@ -579,33 +545,11 @@
                 input.readOnly = !isAdmin;
             });
             
+            // Re-render board to apply admin-specific UI changes
             const orRoomsCollectionRef = collection(db, `artifacts/${appId}/public/data/or_rooms`);
             listenForUpdates(orRoomsCollectionRef);
         }
 
-        showAdminLoginButton.addEventListener('click', () => {
-            adminLoginModal.classList.remove('hidden');
-            passwordInput.value = '';
-            adminErrorMessage.textContent = '';
-            passwordInput.focus();
-        });
-
-        cancelAdminLoginButton.addEventListener('click', () => {
-            adminLoginModal.classList.add('hidden');
-        });
-
-        adminLoginButton.addEventListener('click', () => {
-            if (passwordInput.value === ADMIN_PIN) {
-                isAdmin = true;
-                sessionStorage.setItem('isAdmin', 'true');
-                adminLoginModal.classList.add('hidden');
-                updateUIMode(auth.currentUser);
-            } else {
-                adminErrorMessage.textContent = 'Incorrect PIN. Please try again.';
-                passwordInput.value = '';
-                passwordInput.focus();
-            }
-        });
 
         showAnesLoginButton.addEventListener('click', () => {
             anesLoginModal.classList.remove('hidden');
