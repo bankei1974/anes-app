@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-gray-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Anesthesiologist OR Board</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f9fafb; }
+    </style>
+</head>
+<body class="h-full">
+    <!-- Admin Login Modal -->
+    <div id="login-modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div class="mt-3 text-center">
+                <h3 class="text-lg leading-6 font-medium text-gray-900">Admin Login Required</h3>
+                <div class="mt-2 px-7 py-3">
+                    <input type="password" id="password-input" class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none" placeholder="Enter PIN" autocomplete="off" />
+                    <p id="error-message" class="text-red-500 text-sm mt-2 h-4"></p>
+                </div>
+                <div class="items-center px-4 py-3">
+                    <button id="login-button" class="px-4 py-2 bg-blue-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">Log In</button>
+                    <button id="cancel-login-button" class="mt-2 px-4 py-2 bg-gray-200 text-gray-800 text-base font-medium rounded-md w-full shadow-sm hover:bg-gray-300 focus:outline-none">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="admin-content" class="hidden">
+        <!-- Header -->
+        <header class="bg-white shadow-sm sticky top-0 z-20">
+            <div class="max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-2 flex justify-between items-center">
+                <div>
+                    <h1 class="text-lg font-bold text-gray-800 tracking-tight">Admin Panel</h1>
+                </div>
+                <div>
+                    <a href="./index.html" class="text-sm font-medium text-blue-600 hover:text-blue-800">← Back to Board</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="p-4 sm:p-6 lg:p-8">
+            <div class="max-w-7xl mx-auto">
+                <!-- Add Profile Section -->
+                <div class="bg-white rounded-lg shadow-sm p-4">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-3">Add New Anesthesiologist Profile</h2>
+                    <p class="text-sm text-gray-600 mb-3">
+                        Reminder: First, create the user's login account (email/password) in the 
+                        <a href="https://console.firebase.google.com/" target="_blank" class="text-blue-600 hover:underline">Firebase Authentication Console</a>. 
+                        Then, add their profile here.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <input type="text" id="uid-input" placeholder="User UID from Firebase" class="p-2 border rounded-md">
+                            <input type="text" id="firstName-input" placeholder="First Name" class="p-2 border rounded-md">
+                            <input type="text" id="lastName-input" placeholder="Last Name" class="p-2 border rounded-md">
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-700 mb-2">Communication Preferences</h3>
+                            <div id="comm-pref-input-group" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2">
+                                <div>
+                                    <input type="checkbox" id="comm-text" value="text" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="comm-text" class="ml-2 text-sm text-gray-700">Text</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="comm-epic" value="epic" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="comm-epic" class="ml-2 text-sm text-gray-700">Secure EPIC</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="comm-vocera" value="vocera" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="comm-vocera" class="ml-2 text-sm text-gray-700">Vocera</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="comm-call" value="call" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="comm-call" class="ml-2 text-sm text-gray-700">Call</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="comm-pager" value="pager" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="comm-pager" class="ml-2 text-sm text-gray-700">Pager</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <button id="add-profile-button" class="w-full bg-blue-600 text-white rounded-md hover:bg-blue-700 h-10">Add Profile</button>
+                        </div>
+                    </div>
+                    <p id="add-profile-error" class="text-red-500 text-sm mt-2 h-4"></p>
+                </div>
+
+                <!-- Profiles List -->
+                <div class="mt-8">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-3">Manage Profiles</h2>
+                    <div class="bg-white rounded-lg shadow-sm">
+                        <ul id="profile-list" class="divide-y divide-gray-200">
+                            <!-- Profiles will be rendered here -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, doc, setDoc, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // --- Firebase Config ---
+        const firebaseConfig = {
+          apiKey: "AIzaSyDN9q5wMyNpIg1Mbil-zSowNwAlrJPIzOg",
+          authDomain: "anes-app.firebaseapp.com",
+          projectId: "anes-app",
+          storageBucket: "anes-app.firebasestorage.app",
+          messagingSenderId: "53351553251",
+          appId: "1:53351553251:web:956b092846ffa331760dd6",
+          measurementId: "G-0PRB28VZ2C"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // --- DOM Elements ---
+        const adminContent = document.getElementById('admin-content');
+        const loginModal = document.getElementById('login-modal');
+        const passwordInput = document.getElementById('password-input');
+        const loginButton = document.getElementById('login-button');
+        const cancelLoginButton = document.getElementById('cancel-login-button');
+        const errorMessage = document.getElementById('error-message');
+        
+        const uidInput = document.getElementById('uid-input');
+        const firstNameInput = document.getElementById('firstName-input');
+        const lastNameInput = document.getElementById('lastName-input');
+        const commPrefInputGroup = document.getElementById('comm-pref-input-group'); // Changed to group
+        const addProfileButton = document.getElementById('add-profile-button');
+        const addProfileError = document.getElementById('add-profile-error');
+        const profileList = document.getElementById('profile-list');
+
+        // --- State ---
+        let isAdmin = false;
+        const ADMIN_PIN = "1234";
+
+        // --- Logic ---
+        if (sessionStorage.getItem('isAdmin') === 'true') {
+            isAdmin = true;
+            adminContent.classList.remove('hidden');
+            loadProfiles();
+        } else {
+            loginModal.classList.remove('hidden');
+        }
+
+        loginButton.addEventListener('click', () => {
+            if (passwordInput.value === ADMIN_PIN) {
+                isAdmin = true;
+                sessionStorage.setItem('isAdmin', 'true');
+                loginModal.classList.add('hidden');
+                adminContent.classList.remove('hidden');
+                loadProfiles();
+            } else {
+                errorMessage.textContent = 'Incorrect PIN.';
+            }
+        });
+
+        cancelLoginButton.addEventListener('click', () => {
+            window.location.href = './index.html';
+        });
+
+        addProfileButton.addEventListener('click', async () => {
+            const uid = uidInput.value.trim();
+            const firstName = firstNameInput.value.trim();
+            const lastName = lastNameInput.value.trim();
+
+            const selectedPrefs = [];
+            document.querySelectorAll('#comm-pref-input-group input[type="checkbox"]:checked').forEach(checkbox => {
+                selectedPrefs.push(checkbox.value);
+            });
+
+            if (!uid || !firstName || !lastName || selectedPrefs.length === 0) {
+                addProfileError.textContent = 'Please fill out UID, First Name, Last Name, and select at least one communication preference.';
+                return;
+            }
+            addProfileError.textContent = '';
+            addProfileButton.disabled = true;
+            addProfileButton.textContent = 'Adding...';
+
+            try {
+                const userRef = doc(db, 'users', uid);
+                await setDoc(userRef, {
+                    firstName: firstName,
+                    lastName: lastName,
+                    communicationPreference: selectedPrefs
+                });
+
+                uidInput.value = '';
+                firstNameInput.value = '';
+                lastNameInput.value = '';
+                document.querySelectorAll('#comm-pref-input-group input[type="checkbox"]').forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                loadProfiles();
+
+            } catch (error) {
+                addProfileError.textContent = 'Error: ' + error.message;
+                console.error(error);
+            } finally {
+                addProfileButton.disabled = false;
+                addProfileButton.textContent = 'Add Profile';
+            }
+        });
+
+        async function loadProfiles() {
+            profileList.innerHTML = '<li class="p-4">Loading...</li>';
+            const usersCollection = collection(db, 'users');
+            const snapshot = await getDocs(usersCollection);
+            profileList.innerHTML = '';
+            if (snapshot.empty) {
+                profileList.innerHTML = '<li class="p-4 text-center text-gray-500">No profiles created yet.</li>';
+                return;
+            }
+            snapshot.forEach(doc => {
+                const user = doc.data();
+                const li = document.createElement('li');
+                li.className = 'p-4 flex justify-between items-center';
+                const commPrefs = Array.isArray(user.communicationPreference) ? user.communicationPreference.join(', ') : user.communicationPreference;
+                li.innerHTML = `
+                    <div>
+                        <p class="font-semibold">${user.firstName} ${user.lastName}</p>
+                        <p class="text-sm text-gray-600">Prefers: ${commPrefs}</p>
+                    </div>
+                    <div>
+                        <!-- Edit/Delete buttons will go here in a later phase -->
+                    </div>
+                `;
+                profileList.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>
