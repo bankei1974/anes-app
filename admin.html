@@ -53,13 +53,26 @@
                         Then, add their profile here.
                     </p>
                     <div class="space-y-4">
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <input type="text" id="uid-input" placeholder="User UID from Firebase" class="p-2 border rounded-md">
-                            <input type="text" id="firstName-input" placeholder="First Name" class="p-2 border rounded-md">
-                            <input type="text" id="lastName-input" placeholder="Last Name" class="p-2 border rounded-md">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="uid-input" class="block text-xs font-medium text-gray-500">User UID (from Firebase Auth)</label>
+                                <input type="text" id="uid-input" placeholder="Enter UID" class="p-2 border rounded-md w-full">
+                            </div>
+                            <div>
+                                <label for="color-input" class="block text-xs font-medium text-gray-500">Assigned Color</label>
+                                <input type="color" id="color-input" value="#FFFFFF" class="p-1 border rounded-md w-full h-10">
+                            </div>
+                            <div>
+                                <label for="firstName-input" class="block text-xs font-medium text-gray-500">First Name</label>
+                                <input type="text" id="firstName-input" placeholder="Enter First Name" class="p-2 border rounded-md w-full">
+                            </div>
+                            <div>
+                                <label for="lastName-input" class="block text-xs font-medium text-gray-500">Last Name</label>
+                                <input type="text" id="lastName-input" placeholder="Enter Last Name" class="p-2 border rounded-md w-full">
+                            </div>
                         </div>
                         <div>
-                            <h3 class="text-sm font-medium text-gray-700 mb-2">Communication Preferences</h3>
+                            <h3 class="text-sm font-medium text-gray-700 mt-4 mb-2">Communication Preferences</h3>
                             <div id="comm-pref-input-group" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2">
                                 <div>
                                     <input type="checkbox" id="comm-text" value="text" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
@@ -99,6 +112,15 @@
                         </ul>
                     </div>
                 </div>
+
+                <!-- Room Assignments Section -->
+                <div class="mt-8">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-3">Room Assignments</h2>
+                    <div id="room-assignments-container" class="bg-white rounded-lg shadow-sm p-4">
+                        <!-- Room assignments will be dynamically loaded here -->
+                        <p class="text-gray-500">Loading room assignments...</p>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
@@ -106,7 +128,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, doc, setDoc, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, collection, doc, setDoc, getDocs, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // --- Firebase Config ---
         const firebaseConfig = {
@@ -118,6 +140,7 @@
           appId: "1:53351553251:web:956b092846ffa331760dd6",
           measurementId: "G-0PRB28VZ2C"
         };
+        const appId = firebaseConfig.appId;
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
@@ -134,10 +157,12 @@
         const uidInput = document.getElementById('uid-input');
         const firstNameInput = document.getElementById('firstName-input');
         const lastNameInput = document.getElementById('lastName-input');
-        const commPrefInputGroup = document.getElementById('comm-pref-input-group'); // Changed to group
+        const colorInput = document.getElementById('color-input');
+        const commPrefInputGroup = document.getElementById('comm-pref-input-group');
         const addProfileButton = document.getElementById('add-profile-button');
         const addProfileError = document.getElementById('add-profile-error');
         const profileList = document.getElementById('profile-list');
+        const roomAssignmentsContainer = document.getElementById('room-assignments-container');
 
         // --- State ---
         let isAdmin = false;
@@ -148,6 +173,7 @@
             isAdmin = true;
             adminContent.classList.remove('hidden');
             loadProfiles();
+            loadRoomAssignments();
         } else {
             loginModal.classList.remove('hidden');
         }
@@ -159,6 +185,7 @@
                 loginModal.classList.add('hidden');
                 adminContent.classList.remove('hidden');
                 loadProfiles();
+                loadRoomAssignments();
             } else {
                 errorMessage.textContent = 'Incorrect PIN.';
             }
@@ -172,6 +199,7 @@
             const uid = uidInput.value.trim();
             const firstName = firstNameInput.value.trim();
             const lastName = lastNameInput.value.trim();
+            const color = colorInput.value;
 
             const selectedPrefs = [];
             document.querySelectorAll('#comm-pref-input-group input[type="checkbox"]:checked').forEach(checkbox => {
@@ -179,7 +207,7 @@
             });
 
             if (!uid || !firstName || !lastName || selectedPrefs.length === 0) {
-                addProfileError.textContent = 'Please fill out UID, First Name, Last Name, and select at least one communication preference.';
+                addProfileError.textContent = 'Please fill out all fields and select at least one communication preference.';
                 return;
             }
             addProfileError.textContent = '';
@@ -191,12 +219,14 @@
                 await setDoc(userRef, {
                     firstName: firstName,
                     lastName: lastName,
-                    communicationPreference: selectedPrefs
+                    communicationPreference: selectedPrefs,
+                    color: color
                 });
 
                 uidInput.value = '';
                 firstNameInput.value = '';
                 lastNameInput.value = '';
+                colorInput.value = '#FFFFFF';
                 document.querySelectorAll('#comm-pref-input-group input[type="checkbox"]').forEach(checkbox => {
                     checkbox.checked = false;
                 });
@@ -210,6 +240,70 @@
                 addProfileButton.textContent = 'Add Profile';
             }
         });
+
+        async function loadRoomAssignments() {
+            roomAssignmentsContainer.innerHTML = '<p class="text-gray-500">Loading room assignments...</p>';
+
+            const usersCollection = collection(db, 'users');
+            const roomsCollection = collection(db, `artifacts/${appId}/public/data/or_rooms`);
+
+            try {
+                const [usersSnapshot, roomsSnapshot] = await Promise.all([getDocs(usersCollection), getDocs(roomsCollection)]);
+
+                const users = usersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                const rooms = roomsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                rooms.sort((a, b) => a.order - b.order);
+
+                let assignmentsHTML = '<div class="space-y-4">';
+
+                rooms.forEach(room => {
+                    const anesOptions = users.map(u => `<option value="${u.id}" ${room.anesthesiologist === u.id ? 'selected' : ''}>${u.firstName} ${u.lastName}</option>`).join('');
+
+                    assignmentsHTML += `
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center border-b pb-4">
+                            <div class="font-semibold text-gray-800">${room.roomName}</div>
+                            <div>
+                                <label class="block text-xs font-medium text-gray-500">Anesthesiologist</label>
+                                <select data-room-id="${room.id}" data-field="anesthesiologist" class="assignment-select p-2 border rounded-md w-full">
+                                    <option value="">-- Unassigned --</option>
+                                    ${anesOptions}
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-gray-500">CRNA / Resident</label>
+                                <input type="text" data-room-id="${room.id}" data-field="crnaResident" value="${room.crnaResident || ''}" class="assignment-input p-2 border rounded-md w-full" placeholder="Enter name...">
+                            </div>
+                        </div>
+                    `;
+                });
+
+                assignmentsHTML += '</div>';
+                roomAssignmentsContainer.innerHTML = assignmentsHTML;
+
+            } catch (error) {
+                console.error("Error loading room assignments: ", error);
+                roomAssignmentsContainer.innerHTML = '<p class="text-red-500">Failed to load room assignments.</p>';
+            }
+        }
+
+        roomAssignmentsContainer.addEventListener('change', async (event) => {
+            const target = event.target;
+            if (target.classList.contains('assignment-select') || target.classList.contains('assignment-input')) {
+                const roomId = target.dataset.roomId;
+                const field = target.dataset.field;
+                const value = target.value;
+
+                const roomRef = doc(db, `artifacts/${appId}/public/data/or_rooms`, roomId);
+                try {
+                    await updateDoc(roomRef, { [field]: value });
+                    // Optional: Add a success indicator
+                } catch (error) {
+                    console.error("Error updating room assignment: ", error);
+                    // Optional: Add an error indicator
+                }
+            }
+        });
+
 
         async function loadProfiles() {
             profileList.innerHTML = '<li class="p-4">Loading...</li>';
@@ -226,9 +320,12 @@
                 li.className = 'p-4 flex justify-between items-center';
                 const commPrefs = Array.isArray(user.communicationPreference) ? user.communicationPreference.join(', ') : user.communicationPreference;
                 li.innerHTML = `
-                    <div>
-                        <p class="font-semibold">${user.firstName} ${user.lastName}</p>
-                        <p class="text-sm text-gray-600">Prefers: ${commPrefs}</p>
+                    <div class="flex items-center">
+                        <div class="w-4 h-4 rounded-full mr-3" style="background-color: ${user.color || '#FFFFFF'}; border: 1px solid #ccc;"></div>
+                        <div>
+                            <p class="font-semibold">${user.firstName} ${user.lastName}</p>
+                            <p class="text-sm text-gray-600">Prefers: ${commPrefs}</p>
+                        </div>
                     </div>
                     <div>
                         <!-- Edit/Delete buttons will go here in a later phase -->
