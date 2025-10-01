@@ -128,6 +128,7 @@
                         <button id="show-admin-login-button" class="ml-2 px-3 py-1.5 bg-gray-700 text-white text-sm font-medium rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">Admin</button>
                     </div>
                     <div id="logged-in-view" class="hidden items-center">
+                        <a id="profile-link" href="./profile.html" class="hidden text-sm font-medium text-blue-600 hover:text-blue-800 mr-4">My Profile</a>
                         <a id="admin-panel-link" href="./admin.html" class="hidden text-sm font-medium text-blue-600 hover:text-blue-800 mr-4">Admin Panel</a>
                         <button id="logout-button" class="px-3 py-1.5 bg-red-500 text-white text-sm font-medium rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">Log Out</button>
                     </div>
@@ -228,6 +229,7 @@
         const loggedInView = document.getElementById('logged-in-view');
         const logoutButton = document.getElementById('logout-button');
         const adminPanelLink = document.getElementById('admin-panel-link');
+        const profileLink = document.getElementById('profile-link');
 
         const chargeInput = document.getElementById('charge-input');
         const floatInput = document.getElementById('float-input');
@@ -559,11 +561,12 @@
         // --- UI Mode and Login Logic ---
         function updateUIMode(user) {
             const isProvider = user && !user.isAnonymous;
-            
+
             guestView.classList.toggle('hidden', isProvider || isAdmin);
             loggedInView.classList.toggle('hidden', !isProvider && !isAdmin);
             adminPanelLink.classList.toggle('hidden', !isAdmin);
-            
+            profileLink.classList.toggle('hidden', !isProvider || isAdmin);
+
             if (isProvider && currentUserProfile) {
                 userDisplay.textContent = `Welcome, ${currentUserProfile.firstName}`;
                 userDisplay.classList.remove('hidden');

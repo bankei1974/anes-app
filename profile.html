@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-gray-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Anesthesiologist OR Board</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f9fafb; }
+    </style>
+</head>
+<body class="h-full">
+    <div id="app-content">
+        <!-- Header -->
+        <header class="bg-white shadow-sm sticky top-0 z-20">
+            <div class="max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-2 flex justify-between items-center">
+                <div>
+                    <h1 class="text-lg font-bold text-gray-800 tracking-tight">My Profile</h1>
+                </div>
+                <div>
+                    <a href="./index.html" class="text-sm font-medium text-blue-600 hover:text-blue-800">← Back to Board</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="p-4 sm:p-6 lg:p-8">
+            <div id="loading-indicator" class="text-center">
+                <p>Loading your profile...</p>
+            </div>
+
+            <div id="profile-container" class="hidden max-w-2xl mx-auto bg-white rounded-lg shadow-sm p-6">
+                <div class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="firstName-input" class="block text-sm font-medium text-gray-700">First Name</label>
+                            <input type="text" id="firstName-input" class="mt-1 p-2 border rounded-md w-full bg-gray-100" readonly>
+                        </div>
+                        <div>
+                            <label for="lastName-input" class="block text-sm font-medium text-gray-700">Last Name</label>
+                            <input type="text" id="lastName-input" class="mt-1 p-2 border rounded-md w-full bg-gray-100" readonly>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="color-input" class="block text-sm font-medium text-gray-700">My Assigned Color</label>
+                        <input type="color" id="color-input" class="mt-1 p-1 border rounded-md w-full h-12">
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-700 mb-2">My Communication Preferences</h3>
+                        <div id="comm-pref-input-group" class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                           <!-- Checkboxes will be populated here -->
+                        </div>
+                    </div>
+                    <div>
+                        <button id="save-changes-button" class="w-full bg-blue-600 text-white rounded-md hover:bg-blue-700 h-10">Save Changes</button>
+                        <p id="success-message" class="text-green-600 text-sm mt-2 h-4 text-center"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="login-prompt" class="hidden text-center max-w-2xl mx-auto">
+                <p class="text-lg">Please log in to view your profile.</p>
+                <a href="./index.html" class="mt-4 inline-block px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700">Go to Login</a>
+            </div>
+        </main>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // --- Firebase Config ---
+        const firebaseConfig = {
+          apiKey: "AIzaSyDN9q5wMyNpIg1Mbil-zSowNwAlrJPIzOg",
+          authDomain: "anes-app.firebaseapp.com",
+          projectId: "anes-app",
+          storageBucket: "anes-app.firebasestorage.app",
+          messagingSenderId: "53351553251",
+          appId: "1:53351553251:web:956b092846ffa331760dd6",
+          measurementId: "G-0PRB28VZ2C"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // --- DOM Elements ---
+        const loadingIndicator = document.getElementById('loading-indicator');
+        const profileContainer = document.getElementById('profile-container');
+        const loginPrompt = document.getElementById('login-prompt');
+        const firstNameInput = document.getElementById('firstName-input');
+        const lastNameInput = document.getElementById('lastName-input');
+        const colorInput = document.getElementById('color-input');
+        const commPrefGroup = document.getElementById('comm-pref-input-group');
+        const saveButton = document.getElementById('save-changes-button');
+        const successMessage = document.getElementById('success-message');
+
+        const allCommPreferences = {
+            'text': 'Text',
+            'Secure EPIC message': 'Secure EPIC',
+            'Vocera': 'Vocera',
+            'call': 'Call',
+            'pager': 'Pager'
+        };
+
+        let currentUser = null;
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user && !user.isAnonymous) {
+                currentUser = user;
+                const userRef = doc(db, 'users', user.uid);
+                const docSnap = await getDoc(userRef);
+
+                if (docSnap.exists()) {
+                    populateProfileForm(docSnap.data());
+                } else {
+                    // This case should ideally not happen if profiles are created upon registration
+                    profileContainer.innerHTML = '<p class="text-red-500">Error: Could not find your profile data.</p>';
+                }
+                loadingIndicator.classList.add('hidden');
+                profileContainer.classList.remove('hidden');
+
+            } else {
+                loadingIndicator.classList.add('hidden');
+                loginPrompt.classList.remove('hidden');
+            }
+        });
+
+        function populateProfileForm(profile) {
+            firstNameInput.value = profile.firstName || '';
+            lastNameInput.value = profile.lastName || '';
+            colorInput.value = profile.color || '#FFFFFF';
+
+            commPrefGroup.innerHTML = '';
+            for (const [value, label] of Object.entries(allCommPreferences)) {
+                const isChecked = profile.communicationPreference && profile.communicationPreference.includes(value);
+                const checkboxHTML = `
+                    <div class="flex items-center">
+                        <input type="checkbox" id="comm-${value.replace(/\s+/g, '-')}" value="${value}" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" ${isChecked ? 'checked' : ''}>
+                        <label for="comm-${value.replace(/\s+/g, '-')}" class="ml-3 text-sm text-gray-700">${label}</label>
+                    </div>`;
+                commPrefGroup.insertAdjacentHTML('beforeend', checkboxHTML);
+            }
+        }
+
+        saveButton.addEventListener('click', async () => {
+            if (!currentUser) return;
+
+            const selectedPrefs = [];
+            commPrefGroup.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
+                selectedPrefs.push(checkbox.value);
+            });
+
+            const updatedData = {
+                color: colorInput.value,
+                communicationPreference: selectedPrefs
+            };
+
+            saveButton.disabled = true;
+            saveButton.textContent = 'Saving...';
+            successMessage.textContent = '';
+
+            const userRef = doc(db, 'users', currentUser.uid);
+            try {
+                await updateDoc(userRef, updatedData);
+                successMessage.textContent = 'Your profile has been updated successfully!';
+                setTimeout(() => successMessage.textContent = '', 3000);
+            } catch (error) {
+                console.error("Error updating profile:", error);
+                alert("An error occurred while saving your profile.");
+            } finally {
+                saveButton.disabled = false;
+                saveButton.textContent = 'Save Changes';
+            }
+        });
+    </script>
+</body>
+</html>
