@@ -480,6 +480,9 @@
                             Covering: ${escapeHtml(coveringProfile.firstName)} ${escapeHtml(coveringProfile.lastName)}
                         </div>
                     `;
+                    if (user && coveringUid === user.uid) {
+                        buttonHTML += `<button data-id="${room.id}" class="unclaim-covering-button mt-1 w-full px-2 py-1 bg-orange-500 text-white text-xs font-medium rounded hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-orange-400">Unclaim Covering</button>`;
+                    }
                 }
 
                 li.innerHTML = `
@@ -606,6 +609,12 @@
                     await updateDoc(docRef, { coveringProvider: user.uid });
                 } catch (error) {
                     console.error("Error claiming as covering provider: ", error);
+                }
+            } else if (button.classList.contains('unclaim-covering-button')) {
+                try {
+                    await updateDoc(docRef, { coveringProvider: "" });
+                } catch (error) {
+                    console.error("Error unclaiming covering provider: ", error);
                 }
             }
         });
