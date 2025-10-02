@@ -53,6 +53,10 @@
                                 <label for="lastName-input" class="block text-xs font-medium text-gray-500">Last Name</label>
                                 <input type="text" id="lastName-input" placeholder="Enter Last Name" class="p-2 border rounded-md w-full">
                             </div>
+                            <div>
+                                <label for="phoneNumber-input" class="block text-xs font-medium text-gray-500">Phone Number</label>
+                                <input type="tel" id="phoneNumber-input" placeholder="Enter Phone Number" class="p-2 border rounded-md w-full">
+                            </div>
                         </div>
                         <div class="mt-4">
                             <div class="flex items-center">
@@ -141,6 +145,7 @@
         const uidInput = document.getElementById('uid-input');
         const firstNameInput = document.getElementById('firstName-input');
         const lastNameInput = document.getElementById('lastName-input');
+        const phoneNumberInput = document.getElementById('phoneNumber-input');
         const colorInput = document.getElementById('color-input');
         const isAdminInput = document.getElementById('isAdmin-input');
         const commPrefInputGroup = document.getElementById('comm-pref-input-group');
@@ -186,6 +191,7 @@
             const uid = uidInput.value.trim();
             const firstName = firstNameInput.value.trim();
             const lastName = lastNameInput.value.trim();
+            const phoneNumber = phoneNumberInput.value.trim();
             const color = colorInput.value;
             const isAdmin = isAdminInput.checked;
 
@@ -207,6 +213,7 @@
                 await setDoc(userRef, {
                     firstName: firstName,
                     lastName: lastName,
+                    phoneNumber: phoneNumber,
                     communicationPreference: selectedPrefs,
                     color: color,
                     isAdmin: isAdmin
@@ -215,6 +222,7 @@
                 uidInput.value = '';
                 firstNameInput.value = '';
                 lastNameInput.value = '';
+                phoneNumberInput.value = '';
                 colorInput.value = '#FFFFFF';
                 document.querySelectorAll('#comm-pref-input-group input[type="checkbox"]').forEach(checkbox => {
                     checkbox.checked = false;
@@ -339,6 +347,7 @@
         const editUidInput = document.getElementById('edit-uid-input');
         const editFirstNameInput = document.getElementById('edit-firstName-input');
         const editLastNameInput = document.getElementById('edit-lastName-input');
+        const editPhoneNumberInput = document.getElementById('edit-phoneNumber-input');
         const editColorInput = document.getElementById('edit-color-input');
         const editIsAdminInput = document.getElementById('edit-isAdmin-input');
         const editCommPrefGroup = document.getElementById('edit-comm-pref-input-group');
@@ -350,6 +359,7 @@
             editUidInput.value = uid;
             editFirstNameInput.value = user.firstName || '';
             editLastNameInput.value = user.lastName || '';
+            editPhoneNumberInput.value = user.phoneNumber || '';
             editColorInput.value = user.color || '#FFFFFF';
             editIsAdminInput.checked = user.isAdmin || false;
 
@@ -384,6 +394,7 @@
             const updatedData = {
                 firstName: editFirstNameInput.value.trim(),
                 lastName: editLastNameInput.value.trim(),
+                phoneNumber: editPhoneNumberInput.value.trim(),
                 color: editColorInput.value,
                 communicationPreference: selectedPrefs,
                 isAdmin: editIsAdminInput.checked
@@ -463,6 +474,10 @@
                     <div>
                         <label for="edit-lastName-input" class="block text-xs font-medium text-gray-500">Last Name</label>
                         <input type="text" id="edit-lastName-input" class="p-2 border rounded-md w-full">
+                    </div>
+                     <div>
+                        <label for="edit-phoneNumber-input" class="block text-xs font-medium text-gray-500">Phone Number</label>
+                        <input type="tel" id="edit-phoneNumber-input" class="p-2 border rounded-md w-full">
                     </div>
                      <div>
                         <label for="edit-color-input" class="block text-xs font-medium text-gray-500">Assigned Color</label>

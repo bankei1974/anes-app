@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anesthesiologist OR Board</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght @AppData\Local\Google\Chrome\User Data\Profile 2\Code Cache\js\15b400a4c0a2ca27_0;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #f9fafb; }
         .editable-input {
@@ -24,20 +24,20 @@
             cursor: not-allowed;
             padding-left: 0;
         }
-        .anesthesiologist-input { 
+        .anesthesiologist-input {
             font-size: 0.875rem; /* text-sm */
             font-weight: 600; /* font-semibold */
             color: #1f2937; /* gray-800 */
         }
         .anesthesiologist-input::placeholder { color: #9ca3af; /* gray-400 */ }
-        
-        .crna-resident-input { 
+
+        .crna-resident-input {
             font-size: 0.875rem; /* text-sm */
             color: #4b5563; /* gray-600 */
         }
         .crna-resident-input::placeholder { color: #9ca3af; /* gray-400 */ }
 
-        .role-input { 
+        .role-input {
             font-size: 1rem; /* text-base */
             font-weight: 600; /* font-semibold */
         }
@@ -51,7 +51,7 @@
             height: 32px;
             animation: spin 1s linear infinite;
         }
-        
+
         .status-dot {
             width: 8px;
             height: 8px;
@@ -67,6 +67,24 @@
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+
+        /* Custom Tooltip Styles */
+        .custom-tooltip {
+            position: absolute;
+            background-color: #333;
+            color: #fff;
+            padding: 5px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            z-index: 1000;
+            pointer-events: none; /* Allows hovering over elements behind the tooltip */
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
+        }
+        .custom-tooltip.show {
+            opacity: 1;
         }
     </style>
 </head>
@@ -135,8 +153,16 @@
                                 <input type="text" id="charge-input" placeholder="Assign..." class="editable-input role-input w-full rounded-md placeholder-gray-400">
                             </div>
                             <div>
-                                <label for="float-input" class="block text-xs font-medium text-gray-500">Float</label>
-                                <input type="text" id="float-input" placeholder="Assign..." class="editable-input role-input w-full rounded-md placeholder-gray-400">
+                                <label for="helper-input" class="block text-xs font-medium text-gray-500">Helper</label>
+                                <input type="text" id="helper-input" placeholder="Assign..." class="editable-input role-input w-full rounded-md placeholder-gray-400">
+                            </div>
+                            <div>
+                                <label for="pca-input" class="block text-xs font-medium text-gray-500">PCA's</label>
+                                <input type="text" id="pca-input" placeholder="Assign..." class="editable-input role-input w-full rounded-md placeholder-gray-400">
+                            </div>
+                            <div class="md:col-span-2">
+                                <label for="notes-input" class="block text-xs font-medium text-gray-500">Notes</label>
+                                <textarea id="notes-input" placeholder="Add notes..." class="editable-input role-input w-full rounded-md placeholder-gray-400 h-20 resize-y"></textarea>
                             </div>
                         </div>
                     </div>
@@ -186,7 +212,7 @@
         const orList = document.getElementById('or-list');
         const loadingIndicator = document.getElementById('loading-indicator');
         const activeList = document.getElementById('active-list');
-        
+
         const anesLoginModal = document.getElementById('anesthesiologist-login-modal');
         const anesEmailInput = document.getElementById('anes-email-input');
         const anesPasswordInput = document.getElementById('anes-password-input');
@@ -203,7 +229,9 @@
         const profileLink = document.getElementById('profile-link');
 
         const chargeInput = document.getElementById('charge-input');
-        const floatInput = document.getElementById('float-input');
+        const helperInput = document.getElementById('helper-input');
+        const pcaInput = document.getElementById('pca-input');
+        const notesInput = document.getElementById('notes-input');
 
         // --- State ---
         let usersCache = {};
@@ -217,21 +245,21 @@
                 currentUserProfile = usersCache[user.uid] || null;
                 const orRoomsCollectionRef = collection(db, `artifacts/${appId}/public/data/or_rooms`);
                 const dailyRolesDocRef = doc(db, `artifacts/${appId}/public/data/daily_assignments`, 'roles');
-                
+
                 await Promise.all([
                     seedInitialData(orRoomsCollectionRef),
                     setupDailyRoles(dailyRolesDocRef)
                 ]);
-                
+
                 listenForUpdates(orRoomsCollectionRef);
                 listenForRoles(dailyRolesDocRef);
-                updateUIMode(user); 
+                updateUIMode(user);
             } else {
                 currentUserProfile = null;
                 updateUIMode(null);
             }
         });
-        
+
         async function authenticateUser() {
             try {
                 if (!auth.currentUser) {
@@ -288,7 +316,7 @@
         async function setupDailyRoles(docRef) {
             const docSnap = await getDoc(docRef);
             if (!docSnap.exists()) {
-                await setDoc(docRef, { charge: "", float: "" });
+                await setDoc(docRef, { charge: "", helper: "", pca: "", notes: "" });
             }
         }
 
@@ -311,7 +339,9 @@
                 if (doc.exists()) {
                     const roles = doc.data();
                     chargeInput.value = roles.charge || "";
-                    floatInput.value = roles.float || "";
+                    helperInput.value = roles.helper || "";
+                    pcaInput.value = roles.pca || "";
+                    notesInput.value = roles.notes || "";
                 }
             }, (error) => {
                 console.error("Error fetching roles data:", error);
@@ -336,13 +366,14 @@
 
             const user = auth.currentUser;
             const isProviderLoggedIn = user && !user.isAnonymous;
+            const isAdmin = currentUserProfile && currentUserProfile.isAdmin === true;
 
             const commIcons = {
-                call: (color) => `<svg title="Call" class="w-3 h-3 ml-1.5" style="stroke: ${color};" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>`,
-                text: (color) => `<svg title="Text" class="w-3 h-3 ml-1.5" style="stroke: ${color};" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>`,
-                pager: (color) => `<svg title="Pager" class="w-3 h-3 ml-1.5" style="stroke: ${color};" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4a2 2 0 012-2h6a2 2 0 012 2v12a2 2 0 01-2 2H7a2 2 0 01-2-2V4zm3 0h4v2H8V4z"></path></svg>`,
-                'Secure EPIC message': (color) => `<svg title="Secure EPIC Message" class="w-3 h-3 ml-1.5" style="stroke: ${color};" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>`,
-                'Vocera': (color) => `<svg title="Vocera" class="w-3 h-3 ml-1.5" style="stroke: ${color};" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.05 14.25a5.25 5.25 0 10-6.1 0m-6.35-2.9C4.3 9.65 6.45 6 12 6s7.7 3.65 9.4 5.35M3 21h18" /></svg>`
+                call: (color, phoneNumber) => `<span class="w-3 h-3 ml-1.5 comm-icon" data-comm-type="call" data-phone-number="${phoneNumber}"><svg style="stroke: ${color};" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg></span>`,
+                text: (color, phoneNumber) => `<span class="w-3 h-3 ml-1.5 comm-icon" data-comm-type="text" data-phone-number="${phoneNumber}"><svg style="stroke: ${color};" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg></span>`,
+                pager: (color) => `<span class="w-3 h-3 ml-1.5 comm-icon" data-comm-type="pager"><svg title="Pager" style="stroke: ${color};" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4a2 2 0 012-2h6a2 2 0 012 2v12a2 2 0 01-2 2H7a2 2 0 01-2-2V4zm3 0h4v2H8V4z"></path></svg></span>`,
+                'Secure EPIC message': (color) => `<span class="w-3 h-3 ml-1.5 comm-icon" data-comm-type="epic"><svg title="Secure EPIC Message" style="stroke: ${color};" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg></span>`,
+                'Vocera': (color) => `<span class="w-3 h-3 ml-1.5 comm-icon" data-comm-type="vocera"><svg title="Vocera" style="stroke: ${color};" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.05 14.25a5.25 5.25 0 10-6.1 0m-6.35-2.9C4.3 9.65 6.45 6 12 6s7.7 3.65 9.4 5.35M3 21h18" /></svg></span>`
             };
 
             rooms.forEach(room => {
@@ -376,13 +407,29 @@
                     if (Array.isArray(profile.communicationPreference)) {
                         profile.communicationPreference.forEach(pref => {
                             if (commIcons[pref]) {
-                                iconsHTML += commIcons[pref](textColor);
+                                const phoneNumber = profile.phoneNumber || '';
+                                if (pref === 'call' || pref === 'text') {
+                                    iconsHTML += commIcons[pref](textColor, phoneNumber);
+                                } else {
+                                    iconsHTML += commIcons[pref](textColor);
+                                }
                             }
                         });
                     }
                     anesDisplay = `<div class="flex items-center">${escapeHtml(profile.firstName)} ${escapeHtml(profile.lastName)}<span class="flex items-center ml-auto">${iconsHTML}</span></div>`;
                 } else if (isClaimed) {
                     anesDisplay = 'Unknown User';
+                }
+
+                let coveringProviderDisplay = '';
+                const coveringUid = room.coveringProvider;
+                if (coveringUid && usersCache[coveringUid]) {
+                    const coveringProfile = usersCache[coveringUid];
+                    coveringProviderDisplay = `
+                        <div class="text-xs text-orange-600 font-medium mt-1 pt-1 border-t border-gray-100">
+                            Covering: ${escapeHtml(coveringProfile.firstName)} ${escapeHtml(coveringProfile.lastName)}
+                        </div>
+                    `;
                 }
 
                 li.innerHTML = `
@@ -401,6 +448,7 @@
                             class="editable-input crna-resident-input"
                             style="color: ${textColor};"
                         />
+                         ${coveringProviderDisplay}
                     </div>
                     ${buttonHTML}
                 `;
@@ -430,17 +478,17 @@
                     const profile = usersCache[anesUid];
                     const name = `${profile.firstName} ${profile.lastName}`;
                     if (!userAssignments[name]) {
-                        userAssignments[name] = { count: 0, color: profile.color || '#f3f4f6' }; // Default to gray-100
+                        userAssignments[name] = { rooms: [], color: profile.color || '#f3f4f6' };
                     }
-                    userAssignments[name].count++;
+                    userAssignments[name].rooms.push(room.roomName);
                 }
                 // Aggregate CRNAs/Residents
                 if (room.crnaResident && room.crnaResident.trim() !== '') {
                     const name = room.crnaResident.trim();
                      if (!userAssignments[name]) {
-                        userAssignments[name] = { count: 0, color: '#f3f4f6' }; // No specific color for CRNAs
+                        userAssignments[name] = { rooms: [], color: '#f3f4f6' }; // No specific color for CRNAs
                     }
-                    userAssignments[name].count++;
+                    userAssignments[name].rooms.push(room.roomName);
                 }
             });
 
@@ -459,7 +507,7 @@
                 tag.innerHTML = `
                     <span class="w-2 h-2 rounded-full mr-1.5" style="background-color: ${assignment.color}; border: 1px solid #ccc;"></span>
                     <span>${escapeHtml(name)}</span>
-                    <span class="ml-1.5 bg-gray-200 text-gray-900 text-xs font-bold px-1.5 py-0.5 rounded-full">${assignment.count}</span>
+                    <span class="ml-1.5 text-gray-600 text-xs">(${assignment.rooms.sort().join(', ')})</span>
                 `;
                 activeList.appendChild(tag);
             });
@@ -469,7 +517,7 @@
         orList.addEventListener('blur', async (event) => {
             const input = event.target;
             if (!isAdmin || !input.classList.contains('editable-input') || !input.dataset.id) return;
-            
+
             const docId = input.dataset.id;
             const field = input.dataset.field;
             const newValue = input.value.trim();
@@ -507,9 +555,21 @@
         });
 
         async function handleRoleUpdate(event) {
+            const isAdmin = currentUserProfile && currentUserProfile.isAdmin === true;
             if (!isAdmin) return;
             const input = event.target;
-            const field = input.id === 'charge-input' ? 'charge' : 'float';
+            let field;
+            if (input.id === 'charge-input') {
+                field = 'charge';
+            } else if (input.id === 'helper-input') {
+                field = 'helper';
+            } else if (input.id === 'pca-input') {
+                field = 'pca';
+            } else if (input.id === 'notes-input') {
+                field = 'notes';
+            } else {
+                return; // If it's not one of our handled inputs, do nothing
+            }
             const newValue = input.value.trim();
             const docRef = doc(db, `artifacts/${appId}/public/data/daily_assignments`, 'roles');
             try {
@@ -519,7 +579,9 @@
             }
         }
         chargeInput.addEventListener('blur', handleRoleUpdate);
-        floatInput.addEventListener('blur', handleRoleUpdate);
+        helperInput.addEventListener('blur', handleRoleUpdate);
+        pcaInput.addEventListener('blur', handleRoleUpdate);
+        notesInput.addEventListener('blur', handleRoleUpdate);
 
 
         // --- UI Mode and Login Logic ---
@@ -530,7 +592,7 @@
             guestView.classList.toggle('hidden', isProvider);
             loggedInView.classList.toggle('hidden', !isProvider);
             adminPanelLink.classList.toggle('hidden', !isAdmin);
-            profileLink.classList.toggle('hidden', !isProvider || isAdmin);
+            profileLink.classList.toggle('hidden', !isProvider);
 
             if (isProvider && currentUserProfile) {
                 const welcomeName = currentUserProfile.firstName || 'User';
@@ -544,7 +606,7 @@
             document.querySelectorAll('.editable-input').forEach(input => {
                 input.readOnly = !isAdmin;
             });
-            
+
             // Re-render board to apply admin-specific UI changes
             const orRoomsCollectionRef = collection(db, `artifacts/${appId}/public/data/or_rooms`);
             listenForUpdates(orRoomsCollectionRef);
@@ -575,8 +637,8 @@
         });
 
         logoutButton.addEventListener('click', async () => {
+            const isAdmin = currentUserProfile && currentUserProfile.isAdmin === true;
             if (isAdmin) {
-                isAdmin = false;
                 sessionStorage.removeItem('isAdmin');
                 updateUIMode(auth.currentUser);
             } else {
@@ -589,10 +651,6 @@
             }
         });
 
-        passwordInput.addEventListener('keyup', (event) => {
-            if (event.key === 'Enter') adminLoginButton.click();
-        });
-        
         anesPasswordInput.addEventListener('keyup', (event) => {
             if (event.key === 'Enter') anesLoginButton.click();
         });
@@ -602,6 +660,46 @@
             if (typeof unsafe !== 'string') return '';
             return unsafe.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
+
+        // --- Custom Tooltip Logic ---
+        let currentTooltip = null;
+
+        function showTooltip(targetElement, text) {
+            if (!currentTooltip) {
+                currentTooltip = document.createElement('div');
+                currentTooltip.className = 'custom-tooltip';
+                document.body.appendChild(currentTooltip);
+            }
+            currentTooltip.textContent = text;
+
+            const rect = targetElement.getBoundingClientRect();
+            currentTooltip.style.left = `${rect.left + window.scrollX + rect.width / 2}px`;
+            currentTooltip.style.top = `${rect.top + window.scrollY - currentTooltip.offsetHeight - 5}px`;
+            currentTooltip.classList.add('show');
+        }
+
+        function hideTooltip() {
+            if (currentTooltip) {
+                currentTooltip.classList.remove('show');
+            }
+        }
+
+        orList.addEventListener('mouseover', (event) => {
+            const target = event.target.closest('.comm-icon');
+            if (target && target.dataset.phoneNumber && (target.dataset.commType === 'call' || target.dataset.commType === 'text')) {
+                const phoneNumber = target.dataset.phoneNumber;
+                if (phoneNumber) {
+                    showTooltip(target, phoneNumber);
+                }
+            }
+        });
+
+        orList.addEventListener('mouseout', (event) => {
+            const target = event.target.closest('.comm-icon');
+            if (target) {
+                hideTooltip();
+            }
+        });
 
         // --- Initialize App ---
         authenticateUser();

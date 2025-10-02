@@ -491,3 +491,522 @@
 [info] +  hosting[anes-app]: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
 [info] i  hosting: ::1 - - [01/Oct/2025:13:29:49 +0000] "GET / HTTP/1.1" 200 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:13:29:49 +0000] \"GET / HTTP/1.1\" 200 - \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
 [info] i  hosting: ::1 - - [01/Oct/2025:13:30:03 +0000] "GET /admin.html HTTP/1.1" 200 - "http://localhost:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:13:30:03 +0000] \"GET /admin.html HTTP/1.1\" 200 - \"http://localhost:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[debug] [2025-10-01T14:28:43.314Z] ----------------------------------------------------------------------
+[debug] [2025-10-01T14:28:43.320Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\jabrooks\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2025-10-01T14:28:43.320Z] CLI Version:   14.17.0
+[debug] [2025-10-01T14:28:43.321Z] Platform:      win32
+[debug] [2025-10-01T14:28:43.321Z] Node Version:  v22.17.0
+[debug] [2025-10-01T14:28:43.323Z] Time:          Wed Oct 01 2025 09:28:43 GMT-0500 (Central Daylight Time)
+[debug] [2025-10-01T14:28:43.323Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-10-01T14:28:43.794Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-10-01T14:28:43.795Z] > authorizing via signed-in user (jasonbrettabrooks@gmail.com)
+[debug] [2025-10-01T14:28:43.795Z] [iam] checking project anes-app for permissions ["firebase.projects.get"]
+[debug] [2025-10-01T14:28:43.797Z] Checked if tokens are valid: false, expires at: 1759328922089
+[debug] [2025-10-01T14:28:43.797Z] Checked if tokens are valid: false, expires at: 1759328922089
+[debug] [2025-10-01T14:28:43.797Z] > refreshing access token with scopes: []
+[debug] [2025-10-01T14:28:43.800Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-10-01T14:28:43.800Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-10-01T14:28:43.896Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-10-01T14:28:43.896Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-10-01T14:28:43.922Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions [none]
+[debug] [2025-10-01T14:28:43.922Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions x-goog-quota-user=projects/anes-app
+[debug] [2025-10-01T14:28:43.922Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-10-01T14:28:44.375Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions 200
+[debug] [2025-10-01T14:28:44.375Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-10-01T14:28:44.376Z] Checked if tokens are valid: true, expires at: 1759332522896
+[debug] [2025-10-01T14:28:44.376Z] Checked if tokens are valid: true, expires at: 1759332522896
+[debug] [2025-10-01T14:28:44.377Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/anes-app [none]
+[debug] [2025-10-01T14:28:44.483Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/anes-app 200
+[debug] [2025-10-01T14:28:44.483Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/anes-app {"projectNumber":"53351553251","projectId":"anes-app","lifecycleState":"ACTIVE","name":"Anes-app","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2025-10-01T11:48:24.764319Z"}
+[info] 
+[info] === Serving from 'C:\Users\jabrooks\Desktop\anes-app'...
+[info] 
+[debug] [2025-10-01T14:28:44.487Z] Checked if tokens are valid: true, expires at: 1759332522896
+[debug] [2025-10-01T14:28:44.487Z] Checked if tokens are valid: true, expires at: 1759332522896
+[debug] [2025-10-01T14:28:44.487Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/anes-app/sites 
+[debug] [2025-10-01T14:28:45.113Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/anes-app/sites 200
+[debug] [2025-10-01T14:28:45.113Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/anes-app/sites {"sites":[{"name":"projects/anes-app/sites/anes-app","defaultUrl":"https://anes-app.web.app","appId":"1:53351553251:web:956b092846ffa331760dd6","type":"DEFAULT_SITE"}]}
+[debug] [2025-10-01T14:28:45.113Z] Checked if tokens are valid: true, expires at: 1759332522896
+[debug] [2025-10-01T14:28:45.113Z] Checked if tokens are valid: true, expires at: 1759332522896
+[debug] [2025-10-01T14:28:45.113Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/anes-app/webApps/1:53351553251:web:956b092846ffa331760dd6/config [none]
+[debug] [2025-10-01T14:28:45.563Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/anes-app/webApps/1:53351553251:web:956b092846ffa331760dd6/config 200
+[debug] [2025-10-01T14:28:45.563Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/anes-app/webApps/1:53351553251:web:956b092846ffa331760dd6/config {"projectId":"anes-app","appId":"1:53351553251:web:956b092846ffa331760dd6","storageBucket":"anes-app.firebasestorage.app","apiKey":"AIzaSyDN9q5wMyNpIg1Mbil-zSowNwAlrJPIzOg","authDomain":"anes-app.firebaseapp.com","messagingSenderId":"53351553251","measurementId":"G-0PRB28VZ2C"}
+[debug] [2025-10-01T14:28:45.576Z] Checked if tokens are valid: true, expires at: 1759332522896
+[debug] [2025-10-01T14:28:45.576Z] Checked if tokens are valid: true, expires at: 1759332522896
+[debug] [2025-10-01T14:28:45.576Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/anes-app [none]
+[debug] [2025-10-01T14:28:45.749Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/anes-app 200
+[debug] [2025-10-01T14:28:45.750Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/anes-app {"projectId":"anes-app","projectNumber":"53351553251","displayName":"Anes-app","name":"projects/anes-app","resources":{"hostingSite":"anes-app"},"state":"ACTIVE","etag":"1_4b1f4b99-513d-42f2-a640-b27229cc94a1"}
+[info] +  hosting[anes-app]: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
+[info] i  hosting: ::1 - - [01/Oct/2025:14:29:02 +0000] "GET /admin.html HTTP/1.1" 200 - "http://localhost:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:14:29:02 +0000] \"GET /admin.html HTTP/1.1\" 200 - \"http://localhost:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [01/Oct/2025:14:29:19 +0000] "GET /index.html HTTP/1.1" 200 - "http://localhost:5000/admin.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:14:29:19 +0000] \"GET /index.html HTTP/1.1\" 200 - \"http://localhost:5000/admin.html\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [01/Oct/2025:14:29:30 +0000] "GET /admin.html HTTP/1.1" 200 - "http://localhost:5000/index.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:14:29:30 +0000] \"GET /admin.html HTTP/1.1\" 200 - \"http://localhost:5000/index.html\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [01/Oct/2025:15:00:12 +0000] "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 187 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:15:00:12 +0000] \"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1\" 404 187 \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [01/Oct/2025:15:00:22 +0000] "GET /index.html HTTP/1.1" 200 - "http://localhost:5000/admin.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:15:00:22 +0000] \"GET /index.html HTTP/1.1\" 200 - \"http://localhost:5000/admin.html\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[debug] [2025-10-01T15:17:07.158Z] ----------------------------------------------------------------------
+[debug] [2025-10-01T15:17:07.163Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\jabrooks\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2025-10-01T15:17:07.163Z] CLI Version:   14.17.0
+[debug] [2025-10-01T15:17:07.163Z] Platform:      win32
+[debug] [2025-10-01T15:17:07.163Z] Node Version:  v22.17.0
+[debug] [2025-10-01T15:17:07.164Z] Time:          Wed Oct 01 2025 10:17:07 GMT-0500 (Central Daylight Time)
+[debug] [2025-10-01T15:17:07.164Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-10-01T15:17:07.591Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-10-01T15:17:07.591Z] > authorizing via signed-in user (jasonbrettabrooks@gmail.com)
+[debug] [2025-10-01T15:17:07.592Z] [iam] checking project anes-app for permissions ["firebase.projects.get"]
+[debug] [2025-10-01T15:17:07.593Z] Checked if tokens are valid: false, expires at: 1759332522896
+[debug] [2025-10-01T15:17:07.593Z] Checked if tokens are valid: false, expires at: 1759332522896
+[debug] [2025-10-01T15:17:07.593Z] > refreshing access token with scopes: []
+[debug] [2025-10-01T15:17:07.596Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-10-01T15:17:07.596Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-10-01T15:17:07.682Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-10-01T15:17:07.682Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-10-01T15:17:07.702Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions [none]
+[debug] [2025-10-01T15:17:07.702Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions x-goog-quota-user=projects/anes-app
+[debug] [2025-10-01T15:17:07.702Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-10-01T15:17:08.061Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions 200
+[debug] [2025-10-01T15:17:08.061Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-10-01T15:17:08.062Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:17:08.062Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:17:08.062Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/anes-app [none]
+[debug] [2025-10-01T15:17:08.163Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/anes-app 200
+[debug] [2025-10-01T15:17:08.164Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/anes-app {"projectNumber":"53351553251","projectId":"anes-app","lifecycleState":"ACTIVE","name":"Anes-app","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2025-10-01T11:48:24.764319Z"}
+[info] 
+[info] === Serving from 'C:\Users\jabrooks\Desktop\anes-app'...
+[info] 
+[debug] [2025-10-01T15:17:08.167Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:17:08.167Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:17:08.167Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/anes-app/sites 
+[debug] [2025-10-01T15:17:08.702Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/anes-app/sites 200
+[debug] [2025-10-01T15:17:08.703Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/anes-app/sites {"sites":[{"name":"projects/anes-app/sites/anes-app","defaultUrl":"https://anes-app.web.app","appId":"1:53351553251:web:956b092846ffa331760dd6","type":"DEFAULT_SITE"}]}
+[debug] [2025-10-01T15:17:08.704Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:17:08.704Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:17:08.704Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/anes-app/webApps/1:53351553251:web:956b092846ffa331760dd6/config [none]
+[debug] [2025-10-01T15:17:09.102Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/anes-app/webApps/1:53351553251:web:956b092846ffa331760dd6/config 200
+[debug] [2025-10-01T15:17:09.102Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/anes-app/webApps/1:53351553251:web:956b092846ffa331760dd6/config {"projectId":"anes-app","appId":"1:53351553251:web:956b092846ffa331760dd6","storageBucket":"anes-app.firebasestorage.app","apiKey":"AIzaSyDN9q5wMyNpIg1Mbil-zSowNwAlrJPIzOg","authDomain":"anes-app.firebaseapp.com","messagingSenderId":"53351553251","measurementId":"G-0PRB28VZ2C"}
+[debug] [2025-10-01T15:17:09.114Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:17:09.114Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:17:09.115Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/anes-app [none]
+[debug] [2025-10-01T15:17:09.240Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/anes-app 200
+[debug] [2025-10-01T15:17:09.241Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/anes-app {"projectId":"anes-app","projectNumber":"53351553251","displayName":"Anes-app","name":"projects/anes-app","resources":{"hostingSite":"anes-app"},"state":"ACTIVE","etag":"1_4b1f4b99-513d-42f2-a640-b27229cc94a1"}
+[info] +  hosting[anes-app]: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
+[info] i  hosting: ::1 - - [01/Oct/2025:15:17:26 +0000] "GET /admin.html HTTP/1.1" 200 - "http://localhost:5000/index.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:15:17:26 +0000] \"GET /admin.html HTTP/1.1\" 200 - \"http://localhost:5000/index.html\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [01/Oct/2025:15:17:26 +0000] "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 187 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:15:17:26 +0000] \"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1\" 404 187 \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [01/Oct/2025:15:18:25 +0000] "GET /index.html HTTP/1.1" 200 - "http://localhost:5000/admin.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:15:18:25 +0000] \"GET /index.html HTTP/1.1\" 200 - \"http://localhost:5000/admin.html\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [01/Oct/2025:15:22:41 +0000] "GET /index.html HTTP/1.1" 200 - "http://localhost:5000/admin.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:15:22:41 +0000] \"GET /index.html HTTP/1.1\" 200 - \"http://localhost:5000/admin.html\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [01/Oct/2025:15:33:02 +0000] "GET /admin.html HTTP/1.1" 200 - "http://localhost:5000/index.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:15:33:02 +0000] \"GET /admin.html HTTP/1.1\" 200 - \"http://localhost:5000/index.html\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[debug] [2025-10-01T15:39:44.039Z] ----------------------------------------------------------------------
+[debug] [2025-10-01T15:39:44.045Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\jabrooks\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2025-10-01T15:39:44.046Z] CLI Version:   14.17.0
+[debug] [2025-10-01T15:39:44.046Z] Platform:      win32
+[debug] [2025-10-01T15:39:44.046Z] Node Version:  v22.17.0
+[debug] [2025-10-01T15:39:44.047Z] Time:          Wed Oct 01 2025 10:39:44 GMT-0500 (Central Daylight Time)
+[debug] [2025-10-01T15:39:44.047Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-10-01T15:39:44.457Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-10-01T15:39:44.458Z] > authorizing via signed-in user (jasonbrettabrooks@gmail.com)
+[debug] [2025-10-01T15:39:44.458Z] [iam] checking project anes-app for permissions ["firebase.projects.get"]
+[debug] [2025-10-01T15:39:44.459Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:39:44.460Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:39:44.462Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions [none]
+[debug] [2025-10-01T15:39:44.463Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions x-goog-quota-user=projects/anes-app
+[debug] [2025-10-01T15:39:44.463Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-10-01T15:39:44.666Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions 200
+[debug] [2025-10-01T15:39:44.666Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-10-01T15:39:44.667Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:39:44.667Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:39:44.667Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/anes-app [none]
+[debug] [2025-10-01T15:39:44.782Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/anes-app 200
+[debug] [2025-10-01T15:39:44.782Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/anes-app {"projectNumber":"53351553251","projectId":"anes-app","lifecycleState":"ACTIVE","name":"Anes-app","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2025-10-01T11:48:24.764319Z"}
+[info] 
+[info] === Serving from 'C:\Users\jabrooks\Desktop\anes-app'...
+[info] 
+[debug] [2025-10-01T15:39:44.786Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:39:44.786Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:39:44.786Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/anes-app/sites 
+[debug] [2025-10-01T15:39:45.100Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/anes-app/sites 200
+[debug] [2025-10-01T15:39:45.100Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/anes-app/sites {"sites":[{"name":"projects/anes-app/sites/anes-app","defaultUrl":"https://anes-app.web.app","appId":"1:53351553251:web:956b092846ffa331760dd6","type":"DEFAULT_SITE"}]}
+[debug] [2025-10-01T15:39:45.100Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:39:45.100Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:39:45.101Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/anes-app/webApps/1:53351553251:web:956b092846ffa331760dd6/config [none]
+[debug] [2025-10-01T15:39:45.471Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/anes-app/webApps/1:53351553251:web:956b092846ffa331760dd6/config 200
+[debug] [2025-10-01T15:39:45.471Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/anes-app/webApps/1:53351553251:web:956b092846ffa331760dd6/config {"projectId":"anes-app","appId":"1:53351553251:web:956b092846ffa331760dd6","storageBucket":"anes-app.firebasestorage.app","apiKey":"AIzaSyDN9q5wMyNpIg1Mbil-zSowNwAlrJPIzOg","authDomain":"anes-app.firebaseapp.com","messagingSenderId":"53351553251","measurementId":"G-0PRB28VZ2C"}
+[debug] [2025-10-01T15:39:45.482Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:39:45.483Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:39:45.483Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/anes-app [none]
+[debug] [2025-10-01T15:39:45.691Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/anes-app 200
+[debug] [2025-10-01T15:39:45.691Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/anes-app {"projectId":"anes-app","projectNumber":"53351553251","displayName":"Anes-app","name":"projects/anes-app","resources":{"hostingSite":"anes-app"},"state":"ACTIVE","etag":"1_4b1f4b99-513d-42f2-a640-b27229cc94a1"}
+[info] +  hosting[anes-app]: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
+[info] i  hosting: ::1 - - [01/Oct/2025:15:39:50 +0000] "GET /admin.html HTTP/1.1" 200 - "http://localhost:5000/index.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:15:39:50 +0000] \"GET /admin.html HTTP/1.1\" 200 - \"http://localhost:5000/index.html\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [01/Oct/2025:15:39:55 +0000] "GET /index.html HTTP/1.1" 200 - "http://localhost:5000/admin.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:15:39:55 +0000] \"GET /index.html HTTP/1.1\" 200 - \"http://localhost:5000/admin.html\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [01/Oct/2025:15:40:05 +0000] "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 187 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:15:40:05 +0000] \"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1\" 404 187 \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[debug] [2025-10-01T15:45:00.344Z] ----------------------------------------------------------------------
+[debug] [2025-10-01T15:45:00.349Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\jabrooks\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2025-10-01T15:45:00.350Z] CLI Version:   14.17.0
+[debug] [2025-10-01T15:45:00.350Z] Platform:      win32
+[debug] [2025-10-01T15:45:00.350Z] Node Version:  v22.17.0
+[debug] [2025-10-01T15:45:00.350Z] Time:          Wed Oct 01 2025 10:45:00 GMT-0500 (Central Daylight Time)
+[debug] [2025-10-01T15:45:00.350Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-10-01T15:45:00.748Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-10-01T15:45:00.748Z] > authorizing via signed-in user (jasonbrettabrooks@gmail.com)
+[debug] [2025-10-01T15:45:00.749Z] [iam] checking project anes-app for permissions ["firebase.projects.get"]
+[debug] [2025-10-01T15:45:00.750Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:45:00.750Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:45:00.751Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions [none]
+[debug] [2025-10-01T15:45:00.751Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions x-goog-quota-user=projects/anes-app
+[debug] [2025-10-01T15:45:00.751Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-10-01T15:45:00.879Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions 200
+[debug] [2025-10-01T15:45:00.880Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-10-01T15:45:00.881Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:45:00.881Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:45:00.881Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/anes-app [none]
+[debug] [2025-10-01T15:45:00.981Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/anes-app 200
+[debug] [2025-10-01T15:45:00.982Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/anes-app {"projectNumber":"53351553251","projectId":"anes-app","lifecycleState":"ACTIVE","name":"Anes-app","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2025-10-01T11:48:24.764319Z"}
+[info] 
+[info] === Serving from 'C:\Users\jabrooks\Desktop\anes-app'...
+[info] 
+[debug] [2025-10-01T15:45:00.985Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:45:00.985Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:45:00.986Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/anes-app/sites 
+[debug] [2025-10-01T15:45:01.282Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/anes-app/sites 200
+[debug] [2025-10-01T15:45:01.283Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/anes-app/sites {"sites":[{"name":"projects/anes-app/sites/anes-app","defaultUrl":"https://anes-app.web.app","appId":"1:53351553251:web:956b092846ffa331760dd6","type":"DEFAULT_SITE"}]}
+[debug] [2025-10-01T15:45:01.283Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:45:01.283Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:45:01.283Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/anes-app/webApps/1:53351553251:web:956b092846ffa331760dd6/config [none]
+[debug] [2025-10-01T15:45:01.643Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/anes-app/webApps/1:53351553251:web:956b092846ffa331760dd6/config 200
+[debug] [2025-10-01T15:45:01.643Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/anes-app/webApps/1:53351553251:web:956b092846ffa331760dd6/config {"projectId":"anes-app","appId":"1:53351553251:web:956b092846ffa331760dd6","storageBucket":"anes-app.firebasestorage.app","apiKey":"AIzaSyDN9q5wMyNpIg1Mbil-zSowNwAlrJPIzOg","authDomain":"anes-app.firebaseapp.com","messagingSenderId":"53351553251","measurementId":"G-0PRB28VZ2C"}
+[debug] [2025-10-01T15:45:01.660Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:45:01.660Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:45:01.661Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/anes-app [none]
+[debug] [2025-10-01T15:45:01.863Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/anes-app 200
+[debug] [2025-10-01T15:45:01.863Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/anes-app {"projectId":"anes-app","projectNumber":"53351553251","displayName":"Anes-app","name":"projects/anes-app","resources":{"hostingSite":"anes-app"},"state":"ACTIVE","etag":"1_4b1f4b99-513d-42f2-a640-b27229cc94a1"}
+[info] +  hosting[anes-app]: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
+[info] i  hosting: ::1 - - [01/Oct/2025:15:45:02 +0000] "GET /index.html HTTP/1.1" 200 - "http://localhost:5000/admin.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:15:45:02 +0000] \"GET /index.html HTTP/1.1\" 200 - \"http://localhost:5000/admin.html\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [01/Oct/2025:15:45:07 +0000] "GET /profile.html HTTP/1.1" 200 - "http://localhost:5000/index.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:15:45:07 +0000] \"GET /profile.html HTTP/1.1\" 200 - \"http://localhost:5000/index.html\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [01/Oct/2025:15:45:11 +0000] "GET /index.html HTTP/1.1" 200 - "http://localhost:5000/profile.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:15:45:11 +0000] \"GET /index.html HTTP/1.1\" 200 - \"http://localhost:5000/profile.html\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [01/Oct/2025:15:45:33 +0000] "GET /index.html HTTP/1.1" 200 - "http://localhost:5000/profile.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:15:45:33 +0000] \"GET /index.html HTTP/1.1\" 200 - \"http://localhost:5000/profile.html\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [01/Oct/2025:15:45:58 +0000] "GET /admin.html HTTP/1.1" 200 - "http://localhost:5000/index.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:15:45:58 +0000] \"GET /admin.html HTTP/1.1\" 200 - \"http://localhost:5000/index.html\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [01/Oct/2025:15:46:52 +0000] "GET /index.html HTTP/1.1" 200 - "http://localhost:5000/admin.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:15:46:52 +0000] \"GET /index.html HTTP/1.1\" 200 - \"http://localhost:5000/admin.html\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [01/Oct/2025:15:47:02 +0000] "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 187 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:15:47:02 +0000] \"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1\" 404 187 \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[debug] [2025-10-01T15:50:31.723Z] ----------------------------------------------------------------------
+[debug] [2025-10-01T15:50:31.729Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\jabrooks\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2025-10-01T15:50:31.730Z] CLI Version:   14.17.0
+[debug] [2025-10-01T15:50:31.730Z] Platform:      win32
+[debug] [2025-10-01T15:50:31.730Z] Node Version:  v22.17.0
+[debug] [2025-10-01T15:50:31.730Z] Time:          Wed Oct 01 2025 10:50:31 GMT-0500 (Central Daylight Time)
+[debug] [2025-10-01T15:50:31.730Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-10-01T15:50:32.120Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-10-01T15:50:32.120Z] > authorizing via signed-in user (jasonbrettabrooks@gmail.com)
+[debug] [2025-10-01T15:50:32.120Z] [iam] checking project anes-app for permissions ["firebase.projects.get"]
+[debug] [2025-10-01T15:50:32.122Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:50:32.122Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:50:32.124Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions [none]
+[debug] [2025-10-01T15:50:32.124Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions x-goog-quota-user=projects/anes-app
+[debug] [2025-10-01T15:50:32.124Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-10-01T15:50:32.308Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions 200
+[debug] [2025-10-01T15:50:32.308Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-10-01T15:50:32.309Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:50:32.309Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:50:32.310Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/anes-app [none]
+[debug] [2025-10-01T15:50:32.415Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/anes-app 200
+[debug] [2025-10-01T15:50:32.415Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/anes-app {"projectNumber":"53351553251","projectId":"anes-app","lifecycleState":"ACTIVE","name":"Anes-app","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2025-10-01T11:48:24.764319Z"}
+[info] 
+[info] === Serving from 'C:\Users\jabrooks\Desktop\anes-app'...
+[info] 
+[debug] [2025-10-01T15:50:32.419Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:50:32.419Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:50:32.419Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/anes-app/sites 
+[debug] [2025-10-01T15:50:32.690Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/anes-app/sites 200
+[debug] [2025-10-01T15:50:32.690Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/anes-app/sites {"sites":[{"name":"projects/anes-app/sites/anes-app","defaultUrl":"https://anes-app.web.app","appId":"1:53351553251:web:956b092846ffa331760dd6","type":"DEFAULT_SITE"}]}
+[debug] [2025-10-01T15:50:32.690Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:50:32.690Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:50:32.691Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/anes-app/webApps/1:53351553251:web:956b092846ffa331760dd6/config [none]
+[debug] [2025-10-01T15:50:33.039Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/anes-app/webApps/1:53351553251:web:956b092846ffa331760dd6/config 200
+[debug] [2025-10-01T15:50:33.039Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/anes-app/webApps/1:53351553251:web:956b092846ffa331760dd6/config {"projectId":"anes-app","appId":"1:53351553251:web:956b092846ffa331760dd6","storageBucket":"anes-app.firebasestorage.app","apiKey":"AIzaSyDN9q5wMyNpIg1Mbil-zSowNwAlrJPIzOg","authDomain":"anes-app.firebaseapp.com","messagingSenderId":"53351553251","measurementId":"G-0PRB28VZ2C"}
+[debug] [2025-10-01T15:50:33.051Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:50:33.051Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:50:33.052Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/anes-app [none]
+[debug] [2025-10-01T15:50:33.214Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/anes-app 200
+[debug] [2025-10-01T15:50:33.215Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/anes-app {"projectId":"anes-app","projectNumber":"53351553251","displayName":"Anes-app","name":"projects/anes-app","resources":{"hostingSite":"anes-app"},"state":"ACTIVE","etag":"1_4b1f4b99-513d-42f2-a640-b27229cc94a1"}
+[info] +  hosting[anes-app]: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
+[info] i  hosting: ::1 - - [01/Oct/2025:15:50:33 +0000] "GET /index.html HTTP/1.1" 200 - "http://localhost:5000/admin.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:15:50:33 +0000] \"GET /index.html HTTP/1.1\" 200 - \"http://localhost:5000/admin.html\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [01/Oct/2025:15:50:58 +0000] "GET /admin.html HTTP/1.1" 200 - "http://localhost:5000/index.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:15:50:58 +0000] \"GET /admin.html HTTP/1.1\" 200 - \"http://localhost:5000/index.html\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [01/Oct/2025:15:54:53 +0000] "GET /index.html HTTP/1.1" 200 - "http://localhost:5000/admin.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:15:54:53 +0000] \"GET /index.html HTTP/1.1\" 200 - \"http://localhost:5000/admin.html\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[debug] [2025-10-01T15:59:15.275Z] ----------------------------------------------------------------------
+[debug] [2025-10-01T15:59:15.280Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\jabrooks\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2025-10-01T15:59:15.281Z] CLI Version:   14.17.0
+[debug] [2025-10-01T15:59:15.281Z] Platform:      win32
+[debug] [2025-10-01T15:59:15.281Z] Node Version:  v22.17.0
+[debug] [2025-10-01T15:59:15.281Z] Time:          Wed Oct 01 2025 10:59:15 GMT-0500 (Central Daylight Time)
+[debug] [2025-10-01T15:59:15.281Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-10-01T15:59:15.634Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-10-01T15:59:15.634Z] > authorizing via signed-in user (jasonbrettabrooks@gmail.com)
+[debug] [2025-10-01T15:59:15.634Z] [iam] checking project anes-app for permissions ["firebase.projects.get"]
+[debug] [2025-10-01T15:59:15.636Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:59:15.636Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:59:15.637Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions [none]
+[debug] [2025-10-01T15:59:15.637Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions x-goog-quota-user=projects/anes-app
+[debug] [2025-10-01T15:59:15.637Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-10-01T15:59:15.739Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions 200
+[debug] [2025-10-01T15:59:15.739Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-10-01T15:59:15.741Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:59:15.741Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:59:15.741Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/anes-app [none]
+[debug] [2025-10-01T15:59:15.850Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/anes-app 200
+[debug] [2025-10-01T15:59:15.851Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/anes-app {"projectNumber":"53351553251","projectId":"anes-app","lifecycleState":"ACTIVE","name":"Anes-app","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2025-10-01T11:48:24.764319Z"}
+[info] 
+[info] === Serving from 'C:\Users\jabrooks\Desktop\anes-app'...
+[info] 
+[debug] [2025-10-01T15:59:15.854Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:59:15.854Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:59:15.854Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/anes-app/sites 
+[debug] [2025-10-01T15:59:16.140Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/anes-app/sites 200
+[debug] [2025-10-01T15:59:16.140Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/anes-app/sites {"sites":[{"name":"projects/anes-app/sites/anes-app","defaultUrl":"https://anes-app.web.app","appId":"1:53351553251:web:956b092846ffa331760dd6","type":"DEFAULT_SITE"}]}
+[debug] [2025-10-01T15:59:16.141Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:59:16.141Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:59:16.141Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/anes-app/webApps/1:53351553251:web:956b092846ffa331760dd6/config [none]
+[debug] [2025-10-01T15:59:16.484Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/anes-app/webApps/1:53351553251:web:956b092846ffa331760dd6/config 200
+[debug] [2025-10-01T15:59:16.484Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/anes-app/webApps/1:53351553251:web:956b092846ffa331760dd6/config {"projectId":"anes-app","appId":"1:53351553251:web:956b092846ffa331760dd6","storageBucket":"anes-app.firebasestorage.app","apiKey":"AIzaSyDN9q5wMyNpIg1Mbil-zSowNwAlrJPIzOg","authDomain":"anes-app.firebaseapp.com","messagingSenderId":"53351553251","measurementId":"G-0PRB28VZ2C"}
+[debug] [2025-10-01T15:59:16.495Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:59:16.495Z] Checked if tokens are valid: true, expires at: 1759335426682
+[debug] [2025-10-01T15:59:16.496Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/anes-app [none]
+[debug] [2025-10-01T15:59:16.692Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/anes-app 200
+[debug] [2025-10-01T15:59:16.692Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/anes-app {"projectId":"anes-app","projectNumber":"53351553251","displayName":"Anes-app","name":"projects/anes-app","resources":{"hostingSite":"anes-app"},"state":"ACTIVE","etag":"1_4b1f4b99-513d-42f2-a640-b27229cc94a1"}
+[info] +  hosting[anes-app]: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
+[info] i  hosting: ::1 - - [01/Oct/2025:16:00:09 +0000] "GET /index.html HTTP/1.1" 200 - "http://localhost:5000/admin.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:16:00:09 +0000] \"GET /index.html HTTP/1.1\" 200 - \"http://localhost:5000/admin.html\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [01/Oct/2025:16:00:49 +0000] "GET /admin.html HTTP/1.1" 200 - "http://localhost:5000/index.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:16:00:49 +0000] \"GET /admin.html HTTP/1.1\" 200 - \"http://localhost:5000/index.html\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [01/Oct/2025:16:01:07 +0000] "GET /index.html HTTP/1.1" 200 - "http://localhost:5000/admin.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:16:01:07 +0000] \"GET /index.html HTTP/1.1\" 200 - \"http://localhost:5000/admin.html\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[debug] [2025-10-01T16:03:26.836Z] ----------------------------------------------------------------------
+[debug] [2025-10-01T16:03:26.840Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\jabrooks\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2025-10-01T16:03:26.841Z] CLI Version:   14.17.0
+[debug] [2025-10-01T16:03:26.841Z] Platform:      win32
+[debug] [2025-10-01T16:03:26.841Z] Node Version:  v22.17.0
+[debug] [2025-10-01T16:03:26.842Z] Time:          Wed Oct 01 2025 11:03:26 GMT-0500 (Central Daylight Time)
+[debug] [2025-10-01T16:03:26.842Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-10-01T16:03:27.188Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-10-01T16:03:27.188Z] > authorizing via signed-in user (jasonbrettabrooks@gmail.com)
+[debug] [2025-10-01T16:03:27.189Z] [iam] checking project anes-app for permissions ["firebase.projects.get"]
+[debug] [2025-10-01T16:03:27.190Z] Checked if tokens are valid: false, expires at: 1759335426682
+[debug] [2025-10-01T16:03:27.190Z] Checked if tokens are valid: false, expires at: 1759335426682
+[debug] [2025-10-01T16:03:27.190Z] > refreshing access token with scopes: []
+[debug] [2025-10-01T16:03:27.193Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-10-01T16:03:27.193Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-10-01T16:03:27.284Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-10-01T16:03:27.284Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-10-01T16:03:27.301Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions [none]
+[debug] [2025-10-01T16:03:27.301Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions x-goog-quota-user=projects/anes-app
+[debug] [2025-10-01T16:03:27.302Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-10-01T16:03:27.429Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions 200
+[debug] [2025-10-01T16:03:27.429Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-10-01T16:03:27.430Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:03:27.430Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:03:27.430Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/anes-app [none]
+[debug] [2025-10-01T16:03:27.532Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/anes-app 200
+[debug] [2025-10-01T16:03:27.533Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/anes-app {"projectNumber":"53351553251","projectId":"anes-app","lifecycleState":"ACTIVE","name":"Anes-app","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2025-10-01T11:48:24.764319Z"}
+[info] 
+[info] === Serving from 'C:\Users\jabrooks\Desktop\anes-app'...
+[info] 
+[debug] [2025-10-01T16:03:27.536Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:03:27.537Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:03:27.537Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/anes-app/sites 
+[debug] [2025-10-01T16:03:27.826Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/anes-app/sites 200
+[debug] [2025-10-01T16:03:27.826Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/anes-app/sites {"sites":[{"name":"projects/anes-app/sites/anes-app","defaultUrl":"https://anes-app.web.app","appId":"1:53351553251:web:956b092846ffa331760dd6","type":"DEFAULT_SITE"}]}
+[debug] [2025-10-01T16:03:27.826Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:03:27.826Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:03:27.827Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/anes-app/webApps/1:53351553251:web:956b092846ffa331760dd6/config [none]
+[debug] [2025-10-01T16:03:28.219Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/anes-app/webApps/1:53351553251:web:956b092846ffa331760dd6/config 200
+[debug] [2025-10-01T16:03:28.219Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/anes-app/webApps/1:53351553251:web:956b092846ffa331760dd6/config {"projectId":"anes-app","appId":"1:53351553251:web:956b092846ffa331760dd6","storageBucket":"anes-app.firebasestorage.app","apiKey":"AIzaSyDN9q5wMyNpIg1Mbil-zSowNwAlrJPIzOg","authDomain":"anes-app.firebaseapp.com","messagingSenderId":"53351553251","measurementId":"G-0PRB28VZ2C"}
+[debug] [2025-10-01T16:03:28.230Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:03:28.230Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:03:28.230Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/anes-app [none]
+[debug] [2025-10-01T16:03:28.446Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/anes-app 200
+[debug] [2025-10-01T16:03:28.446Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/anes-app {"projectId":"anes-app","projectNumber":"53351553251","displayName":"Anes-app","name":"projects/anes-app","resources":{"hostingSite":"anes-app"},"state":"ACTIVE","etag":"1_4b1f4b99-513d-42f2-a640-b27229cc94a1"}
+[info] +  hosting[anes-app]: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
+[info] i  hosting: ::1 - - [01/Oct/2025:16:03:37 +0000] "GET /index.html HTTP/1.1" 200 - "http://localhost:5000/admin.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:16:03:37 +0000] \"GET /index.html HTTP/1.1\" 200 - \"http://localhost:5000/admin.html\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[debug] [2025-10-01T16:13:24.689Z] ----------------------------------------------------------------------
+[debug] [2025-10-01T16:13:24.696Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\jabrooks\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2025-10-01T16:13:24.697Z] CLI Version:   14.17.0
+[debug] [2025-10-01T16:13:24.697Z] Platform:      win32
+[debug] [2025-10-01T16:13:24.698Z] Node Version:  v22.17.0
+[debug] [2025-10-01T16:13:24.699Z] Time:          Wed Oct 01 2025 11:13:24 GMT-0500 (Central Daylight Time)
+[debug] [2025-10-01T16:13:24.699Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-10-01T16:13:25.144Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-10-01T16:13:25.145Z] > authorizing via signed-in user (jasonbrettabrooks@gmail.com)
+[debug] [2025-10-01T16:13:25.145Z] [iam] checking project anes-app for permissions ["firebase.projects.get"]
+[debug] [2025-10-01T16:13:25.147Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:13:25.147Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:13:25.148Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions [none]
+[debug] [2025-10-01T16:13:25.148Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions x-goog-quota-user=projects/anes-app
+[debug] [2025-10-01T16:13:25.148Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-10-01T16:13:25.301Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions 200
+[debug] [2025-10-01T16:13:25.301Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-10-01T16:13:25.303Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:13:25.303Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:13:25.303Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/anes-app [none]
+[debug] [2025-10-01T16:13:25.405Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/anes-app 200
+[debug] [2025-10-01T16:13:25.405Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/anes-app {"projectNumber":"53351553251","projectId":"anes-app","lifecycleState":"ACTIVE","name":"Anes-app","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2025-10-01T11:48:24.764319Z"}
+[info] 
+[info] === Serving from 'C:\Users\jabrooks\Desktop\anes-app'...
+[info] 
+[debug] [2025-10-01T16:13:25.408Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:13:25.408Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:13:25.408Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/anes-app/sites 
+[debug] [2025-10-01T16:13:25.685Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/anes-app/sites 200
+[debug] [2025-10-01T16:13:25.686Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/anes-app/sites {"sites":[{"name":"projects/anes-app/sites/anes-app","defaultUrl":"https://anes-app.web.app","appId":"1:53351553251:web:956b092846ffa331760dd6","type":"DEFAULT_SITE"}]}
+[debug] [2025-10-01T16:13:25.686Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:13:25.686Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:13:25.686Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/anes-app/webApps/1:53351553251:web:956b092846ffa331760dd6/config [none]
+[debug] [2025-10-01T16:13:26.146Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/anes-app/webApps/1:53351553251:web:956b092846ffa331760dd6/config 200
+[debug] [2025-10-01T16:13:26.146Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/anes-app/webApps/1:53351553251:web:956b092846ffa331760dd6/config {"projectId":"anes-app","appId":"1:53351553251:web:956b092846ffa331760dd6","storageBucket":"anes-app.firebasestorage.app","apiKey":"AIzaSyDN9q5wMyNpIg1Mbil-zSowNwAlrJPIzOg","authDomain":"anes-app.firebaseapp.com","messagingSenderId":"53351553251","measurementId":"G-0PRB28VZ2C"}
+[debug] [2025-10-01T16:13:26.158Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:13:26.158Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:13:26.159Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/anes-app [none]
+[debug] [2025-10-01T16:13:26.361Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/anes-app 200
+[debug] [2025-10-01T16:13:26.361Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/anes-app {"projectId":"anes-app","projectNumber":"53351553251","displayName":"Anes-app","name":"projects/anes-app","resources":{"hostingSite":"anes-app"},"state":"ACTIVE","etag":"1_4b1f4b99-513d-42f2-a640-b27229cc94a1"}
+[info] +  hosting[anes-app]: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
+[info] i  hosting: ::1 - - [01/Oct/2025:16:14:12 +0000] "GET /index.html HTTP/1.1" 200 - "http://localhost:5000/admin.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:16:14:12 +0000] \"GET /index.html HTTP/1.1\" 200 - \"http://localhost:5000/admin.html\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [01/Oct/2025:16:14:48 +0000] "GET /admin.html HTTP/1.1" 200 - "http://localhost:5000/index.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:16:14:48 +0000] \"GET /admin.html HTTP/1.1\" 200 - \"http://localhost:5000/index.html\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [01/Oct/2025:16:15:25 +0000] "GET /index.html HTTP/1.1" 200 - "http://localhost:5000/admin.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:16:15:25 +0000] \"GET /index.html HTTP/1.1\" 200 - \"http://localhost:5000/admin.html\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[debug] [2025-10-01T16:23:08.874Z] ----------------------------------------------------------------------
+[debug] [2025-10-01T16:23:08.879Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\jabrooks\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2025-10-01T16:23:08.879Z] CLI Version:   14.17.0
+[debug] [2025-10-01T16:23:08.880Z] Platform:      win32
+[debug] [2025-10-01T16:23:08.880Z] Node Version:  v22.17.0
+[debug] [2025-10-01T16:23:08.880Z] Time:          Wed Oct 01 2025 11:23:08 GMT-0500 (Central Daylight Time)
+[debug] [2025-10-01T16:23:08.880Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-10-01T16:23:09.238Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-10-01T16:23:09.239Z] > authorizing via signed-in user (jasonbrettabrooks@gmail.com)
+[debug] [2025-10-01T16:23:09.239Z] [iam] checking project anes-app for permissions ["firebase.projects.get"]
+[debug] [2025-10-01T16:23:09.241Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:23:09.241Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:23:09.242Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions [none]
+[debug] [2025-10-01T16:23:09.242Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions x-goog-quota-user=projects/anes-app
+[debug] [2025-10-01T16:23:09.242Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-10-01T16:23:09.420Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions 200
+[debug] [2025-10-01T16:23:09.420Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-10-01T16:23:09.421Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:23:09.421Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:23:09.422Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/anes-app [none]
+[debug] [2025-10-01T16:23:09.505Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/anes-app 200
+[debug] [2025-10-01T16:23:09.505Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/anes-app {"projectNumber":"53351553251","projectId":"anes-app","lifecycleState":"ACTIVE","name":"Anes-app","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2025-10-01T11:48:24.764319Z"}
+[info] 
+[info] === Serving from 'C:\Users\jabrooks\Desktop\anes-app'...
+[info] 
+[debug] [2025-10-01T16:23:09.508Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:23:09.508Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:23:09.508Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/anes-app/sites 
+[debug] [2025-10-01T16:23:09.802Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/anes-app/sites 200
+[debug] [2025-10-01T16:23:09.802Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/anes-app/sites {"sites":[{"name":"projects/anes-app/sites/anes-app","defaultUrl":"https://anes-app.web.app","appId":"1:53351553251:web:956b092846ffa331760dd6","type":"DEFAULT_SITE"}]}
+[debug] [2025-10-01T16:23:09.802Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:23:09.802Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:23:09.802Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/anes-app/webApps/1:53351553251:web:956b092846ffa331760dd6/config [none]
+[debug] [2025-10-01T16:23:10.113Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/anes-app/webApps/1:53351553251:web:956b092846ffa331760dd6/config 200
+[debug] [2025-10-01T16:23:10.113Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/anes-app/webApps/1:53351553251:web:956b092846ffa331760dd6/config {"projectId":"anes-app","appId":"1:53351553251:web:956b092846ffa331760dd6","storageBucket":"anes-app.firebasestorage.app","apiKey":"AIzaSyDN9q5wMyNpIg1Mbil-zSowNwAlrJPIzOg","authDomain":"anes-app.firebaseapp.com","messagingSenderId":"53351553251","measurementId":"G-0PRB28VZ2C"}
+[debug] [2025-10-01T16:23:10.124Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:23:10.124Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:23:10.124Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/anes-app [none]
+[debug] [2025-10-01T16:23:10.266Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/anes-app 200
+[debug] [2025-10-01T16:23:10.266Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/anes-app {"projectId":"anes-app","projectNumber":"53351553251","displayName":"Anes-app","name":"projects/anes-app","resources":{"hostingSite":"anes-app"},"state":"ACTIVE","etag":"1_4b1f4b99-513d-42f2-a640-b27229cc94a1"}
+[info] +  hosting[anes-app]: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
+[info] i  hosting: ::1 - - [01/Oct/2025:16:23:37 +0000] "GET /index.html HTTP/1.1" 200 - "http://localhost:5000/admin.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:16:23:37 +0000] \"GET /index.html HTTP/1.1\" 200 - \"http://localhost:5000/admin.html\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [01/Oct/2025:16:23:48 +0000] "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 187 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:16:23:48 +0000] \"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1\" 404 187 \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[debug] [2025-10-01T16:27:07.599Z] ----------------------------------------------------------------------
+[debug] [2025-10-01T16:27:07.607Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\jabrooks\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2025-10-01T16:27:07.608Z] CLI Version:   14.17.0
+[debug] [2025-10-01T16:27:07.608Z] Platform:      win32
+[debug] [2025-10-01T16:27:07.608Z] Node Version:  v22.17.0
+[debug] [2025-10-01T16:27:07.609Z] Time:          Wed Oct 01 2025 11:27:07 GMT-0500 (Central Daylight Time)
+[debug] [2025-10-01T16:27:07.609Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-10-01T16:27:08.143Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-10-01T16:27:08.144Z] > authorizing via signed-in user (jasonbrettabrooks@gmail.com)
+[debug] [2025-10-01T16:27:08.144Z] [iam] checking project anes-app for permissions ["firebase.projects.get"]
+[debug] [2025-10-01T16:27:08.146Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:27:08.146Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:27:08.147Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions [none]
+[debug] [2025-10-01T16:27:08.147Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions x-goog-quota-user=projects/anes-app
+[debug] [2025-10-01T16:27:08.147Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-10-01T16:27:08.245Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions 200
+[debug] [2025-10-01T16:27:08.245Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-10-01T16:27:08.246Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:27:08.246Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:27:08.247Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/anes-app [none]
+[debug] [2025-10-01T16:27:08.347Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/anes-app 200
+[debug] [2025-10-01T16:27:08.347Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/anes-app {"projectNumber":"53351553251","projectId":"anes-app","lifecycleState":"ACTIVE","name":"Anes-app","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2025-10-01T11:48:24.764319Z"}
+[info] 
+[info] === Serving from 'C:\Users\jabrooks\Desktop\anes-app'...
+[info] 
+[debug] [2025-10-01T16:27:08.352Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:27:08.352Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:27:08.352Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/anes-app/sites 
+[debug] [2025-10-01T16:27:08.645Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/anes-app/sites 200
+[debug] [2025-10-01T16:27:08.646Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/anes-app/sites {"sites":[{"name":"projects/anes-app/sites/anes-app","defaultUrl":"https://anes-app.web.app","appId":"1:53351553251:web:956b092846ffa331760dd6","type":"DEFAULT_SITE"}]}
+[debug] [2025-10-01T16:27:08.646Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:27:08.646Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:27:08.646Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/anes-app/webApps/1:53351553251:web:956b092846ffa331760dd6/config [none]
+[debug] [2025-10-01T16:27:08.988Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/anes-app/webApps/1:53351553251:web:956b092846ffa331760dd6/config 200
+[debug] [2025-10-01T16:27:08.988Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/anes-app/webApps/1:53351553251:web:956b092846ffa331760dd6/config {"projectId":"anes-app","appId":"1:53351553251:web:956b092846ffa331760dd6","storageBucket":"anes-app.firebasestorage.app","apiKey":"AIzaSyDN9q5wMyNpIg1Mbil-zSowNwAlrJPIzOg","authDomain":"anes-app.firebaseapp.com","messagingSenderId":"53351553251","measurementId":"G-0PRB28VZ2C"}
+[debug] [2025-10-01T16:27:08.999Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:27:09.000Z] Checked if tokens are valid: true, expires at: 1759338206284
+[debug] [2025-10-01T16:27:09.001Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/anes-app [none]
+[debug] [2025-10-01T16:27:09.178Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/anes-app 200
+[debug] [2025-10-01T16:27:09.178Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/anes-app {"projectId":"anes-app","projectNumber":"53351553251","displayName":"Anes-app","name":"projects/anes-app","resources":{"hostingSite":"anes-app"},"state":"ACTIVE","etag":"1_4b1f4b99-513d-42f2-a640-b27229cc94a1"}
+[info] +  hosting[anes-app]: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
+[info] i  hosting: ::1 - - [01/Oct/2025:16:27:51 +0000] "GET /index.html HTTP/1.1" 200 - "http://localhost:5000/admin.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:16:27:51 +0000] \"GET /index.html HTTP/1.1\" 200 - \"http://localhost:5000/admin.html\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [01/Oct/2025:16:27:51 +0000] "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 187 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:16:27:51 +0000] \"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1\" 404 187 \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [01/Oct/2025:17:04:20 +0000] "GET /admin.html HTTP/1.1" 200 - "http://localhost:5000/index.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:17:04:20 +0000] \"GET /admin.html HTTP/1.1\" 200 - \"http://localhost:5000/index.html\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [01/Oct/2025:17:05:51 +0000] "GET /index.html HTTP/1.1" 200 - "http://localhost:5000/admin.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:17:05:51 +0000] \"GET /index.html HTTP/1.1\" 200 - \"http://localhost:5000/admin.html\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[debug] [2025-10-01T17:09:36.685Z] ----------------------------------------------------------------------
+[debug] [2025-10-01T17:09:36.690Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\jabrooks\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2025-10-01T17:09:36.691Z] CLI Version:   14.17.0
+[debug] [2025-10-01T17:09:36.691Z] Platform:      win32
+[debug] [2025-10-01T17:09:36.691Z] Node Version:  v22.17.0
+[debug] [2025-10-01T17:09:36.692Z] Time:          Wed Oct 01 2025 12:09:36 GMT-0500 (Central Daylight Time)
+[debug] [2025-10-01T17:09:36.692Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-10-01T17:09:37.046Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-10-01T17:09:37.046Z] > authorizing via signed-in user (jasonbrettabrooks@gmail.com)
+[debug] [2025-10-01T17:09:37.046Z] [iam] checking project anes-app for permissions ["firebase.projects.get"]
+[debug] [2025-10-01T17:09:37.048Z] Checked if tokens are valid: false, expires at: 1759338206284
+[debug] [2025-10-01T17:09:37.048Z] Checked if tokens are valid: false, expires at: 1759338206284
+[debug] [2025-10-01T17:09:37.048Z] > refreshing access token with scopes: []
+[debug] [2025-10-01T17:09:37.051Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-10-01T17:09:37.051Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-10-01T17:09:37.114Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-10-01T17:09:37.114Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-10-01T17:09:37.132Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions [none]
+[debug] [2025-10-01T17:09:37.132Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions x-goog-quota-user=projects/anes-app
+[debug] [2025-10-01T17:09:37.132Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-10-01T17:09:37.571Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions 200
+[debug] [2025-10-01T17:09:37.571Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/anes-app:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-10-01T17:09:37.572Z] Checked if tokens are valid: true, expires at: 1759342176114
+[debug] [2025-10-01T17:09:37.572Z] Checked if tokens are valid: true, expires at: 1759342176114
+[debug] [2025-10-01T17:09:37.572Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/anes-app [none]
+[debug] [2025-10-01T17:09:37.683Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/anes-app 200
+[debug] [2025-10-01T17:09:37.683Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/anes-app {"projectNumber":"53351553251","projectId":"anes-app","lifecycleState":"ACTIVE","name":"Anes-app","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2025-10-01T11:48:24.764319Z"}
+[info] 
+[info] === Serving from 'C:\Users\jabrooks\Desktop\anes-app'...
+[info] 
+[debug] [2025-10-01T17:09:37.687Z] Checked if tokens are valid: true, expires at: 1759342176114
+[debug] [2025-10-01T17:09:37.687Z] Checked if tokens are valid: true, expires at: 1759342176114
+[debug] [2025-10-01T17:09:37.687Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/anes-app/sites 
+[debug] [2025-10-01T17:09:38.309Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/anes-app/sites 200
+[debug] [2025-10-01T17:09:38.310Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/anes-app/sites {"sites":[{"name":"projects/anes-app/sites/anes-app","defaultUrl":"https://anes-app.web.app","appId":"1:53351553251:web:956b092846ffa331760dd6","type":"DEFAULT_SITE"}]}
+[debug] [2025-10-01T17:09:38.310Z] Checked if tokens are valid: true, expires at: 1759342176114
+[debug] [2025-10-01T17:09:38.310Z] Checked if tokens are valid: true, expires at: 1759342176114
+[debug] [2025-10-01T17:09:38.310Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/anes-app/webApps/1:53351553251:web:956b092846ffa331760dd6/config [none]
+[debug] [2025-10-01T17:09:38.707Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/anes-app/webApps/1:53351553251:web:956b092846ffa331760dd6/config 200
+[debug] [2025-10-01T17:09:38.707Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/anes-app/webApps/1:53351553251:web:956b092846ffa331760dd6/config {"projectId":"anes-app","appId":"1:53351553251:web:956b092846ffa331760dd6","storageBucket":"anes-app.firebasestorage.app","apiKey":"AIzaSyDN9q5wMyNpIg1Mbil-zSowNwAlrJPIzOg","authDomain":"anes-app.firebaseapp.com","messagingSenderId":"53351553251","measurementId":"G-0PRB28VZ2C"}
+[debug] [2025-10-01T17:09:38.718Z] Checked if tokens are valid: true, expires at: 1759342176114
+[debug] [2025-10-01T17:09:38.718Z] Checked if tokens are valid: true, expires at: 1759342176114
+[debug] [2025-10-01T17:09:38.718Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/anes-app [none]
+[debug] [2025-10-01T17:09:38.880Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/anes-app 200
+[debug] [2025-10-01T17:09:38.880Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/anes-app {"projectId":"anes-app","projectNumber":"53351553251","displayName":"Anes-app","name":"projects/anes-app","resources":{"hostingSite":"anes-app"},"state":"ACTIVE","etag":"1_4b1f4b99-513d-42f2-a640-b27229cc94a1"}
+[info] +  hosting[anes-app]: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
+[info] i  hosting: ::1 - - [01/Oct/2025:17:09:50 +0000] "GET /index.html HTTP/1.1" 200 - "http://localhost:5000/admin.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [01/Oct/2025:17:09:50 +0000] \"GET /index.html HTTP/1.1\" 200 - \"http://localhost:5000/admin.html\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}

@@ -7,11 +7,12 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f9fafb; }
+        body { font-family: 'Inter', sans-serif; }
+        .toggle-knob { transition: transform 0.2s ease-in-out; }
     </style>
 </head>
 <body class="h-full">
-    <div id="app-content">
+    <div id="app-content" class="hidden">
         <!-- Header -->
         <header class="bg-white shadow-sm sticky top-0 z-20">
             <div class="max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-2 flex justify-between items-center">
@@ -26,76 +27,127 @@
 
         <!-- Main Content -->
         <main class="p-4 sm:p-6 lg:p-8">
-            <div id="loading-indicator" class="text-center">
-                <p>Loading your profile...</p>
-            </div>
+            <div class="max-w-2xl mx-auto">
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h2 id="welcome-message" class="text-xl font-semibold text-gray-800 mb-4">Loading...</h2>
 
-            <div id="profile-container" class="hidden max-w-2xl mx-auto bg-white rounded-lg shadow-sm p-6">
-                <div class="space-y-6">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Profile settings will go here -->
+                    <div id="profile-settings" class="space-y-6">
                         <div>
-                            <label for="firstName-input" class="block text-sm font-medium text-gray-700">First Name</label>
-                            <input type="text" id="firstName-input" class="mt-1 p-2 border rounded-md w-full bg-gray-100" readonly>
+                            <h3 class="text-lg font-medium text-gray-900">Your Status</h3>
+                            <div class="mt-2 flex items-center">
+                                <span id="status-label" class="text-sm font-medium text-gray-700 mr-4"></span>
+                                <button type="button" id="status-toggle" class="relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" role="switch" aria-checked="false">
+                                    <span class="sr-only">Use setting</span>
+                                    <span id="status-toggle-knob" aria-hidden="true" class="pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200"></span>
+                                </button>
+                            </div>
+                             <p class="mt-1 text-sm text-gray-500">Set your status to "Off Duty" to hand over your assignments.</p>
                         </div>
-                        <div>
-                            <label for="lastName-input" class="block text-sm font-medium text-gray-700">Last Name</label>
-                            <input type="text" id="lastName-input" class="mt-1 p-2 border rounded-md w-full bg-gray-100" readonly>
+                        <div class="border-t border-gray-200 pt-6">
+                            <div class="space-y-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label for="firstName-input" class="block text-sm font-medium text-gray-700">First Name</label>
+                                        <input type="text" id="firstName-input" class="mt-1 p-2 border rounded-md w-full bg-gray-100" readonly>
+                                    </div>
+                                    <div>
+                                        <label for="lastName-input" class="block text-sm font-medium text-gray-700">Last Name</label>
+                                        <input type="text" id="lastName-input" class="mt-1 p-2 border rounded-md w-full bg-gray-100" readonly>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="color-input" class="block text-sm font-medium text-gray-700">My Assigned Color</label>
+                                    <input type="color" id="color-input" class="mt-1 p-1 border rounded-md w-full h-12">
+                                </div>
+                                <div>
+                                    <h3 class="text-sm font-medium text-gray-700 mb-2">My Communication Preferences</h3>
+                                    <div id="comm-pref-input-group" class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                                       <!-- Checkboxes will be populated here -->
+                                    </div>
+                                </div>
+                                <div>
+                                    <button id="save-changes-button" class="w-full bg-blue-600 text-white rounded-md hover:bg-blue-700 h-10">Save Changes</button>
+                                    <p id="success-message" class="text-green-600 text-sm mt-2 h-4 text-center"></p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <label for="color-input" class="block text-sm font-medium text-gray-700">My Assigned Color</label>
-                        <input type="color" id="color-input" class="mt-1 p-1 border rounded-md w-full h-12">
-                    </div>
-                    <div>
-                        <h3 class="text-sm font-medium text-gray-700 mb-2">My Communication Preferences</h3>
-                        <div id="comm-pref-input-group" class="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                           <!-- Checkboxes will be populated here -->
-                        </div>
-                    </div>
-                    <div>
-                        <button id="save-changes-button" class="w-full bg-blue-600 text-white rounded-md hover:bg-blue-700 h-10">Save Changes</button>
-                        <p id="success-message" class="text-green-600 text-sm mt-2 h-4 text-center"></p>
                     </div>
                 </div>
             </div>
-
-            <div id="login-prompt" class="hidden text-center max-w-2xl mx-auto">
-                <p class="text-lg">Please log in to view your profile.</p>
-                <a href="./index.html" class="mt-4 inline-block px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700">Go to Login</a>
-            </div>
         </main>
+    </div>
+
+    <!-- Handoff Modal -->
+    <div id="handoff-modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-75 overflow-y-auto h-full w-full z-50">
+        <div class="relative top-20 mx-auto p-6 border w-full max-w-md shadow-lg rounded-md bg-white">
+            <div class="mt-3">
+                <h3 class="text-lg leading-6 font-medium text-gray-900">Hand Off Assignments</h3>
+                <div class="mt-4 space-y-4">
+                    <p class="text-sm text-gray-600">You are about to go off duty. Please select another provider to take over all of your current OR assignments.</p>
+                    <div>
+                        <label for="handoff-provider-select" class="block text-sm font-medium text-gray-700">Select Provider</label>
+                        <select id="handoff-provider-select" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                            <!-- Provider options will be populated here -->
+                        </select>
+                    </div>
+                </div>
+                <div class="mt-6 flex justify-end space-x-3">
+                    <button id="cancel-handoff-button" type="button" class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Cancel</button>
+                    <button id="confirm-handoff-button" type="button" class="bg-blue-600 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Confirm Handoff</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="loading-indicator" class="flex justify-center items-center h-full">
+        <p class="text-gray-600">Loading profile...</p>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, updateDoc, collection, getDocs, writeBatch, query, where } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // --- Firebase Config ---
         const firebaseConfig = {
-          apiKey: "AIzaSyDN9q5wMyNpIg1Mbil-zSowNwAlrJPIzOg",
-          authDomain: "anes-app.firebaseapp.com",
-          projectId: "anes-app",
-          storageBucket: "anes-app.firebasestorage.app",
-          messagingSenderId: "53351553251",
-          appId: "1:53351553251:web:956b092846ffa331760dd6",
-          measurementId: "G-0PRB28VZ2C"
+            apiKey: "AIzaSyDN9q5wMyNpIg1Mbil-zSowNwAlrJPIzOg",
+            authDomain: "anes-app.firebaseapp.com",
+            projectId: "anes-app",
+            storageBucket: "anes-app.firebasestorage.app",
+            messagingSenderId: "53351553251",
+            appId: "1:53351553251:web:956b092846ffa331760dd6",
+            measurementId: "G-0PRB28VZ2C"
         };
+        const appId = firebaseConfig.appId;
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
 
         // --- DOM Elements ---
+        const appContent = document.getElementById('app-content');
         const loadingIndicator = document.getElementById('loading-indicator');
-        const profileContainer = document.getElementById('profile-container');
-        const loginPrompt = document.getElementById('login-prompt');
+        const welcomeMessage = document.getElementById('welcome-message');
+        const profileSettings = document.getElementById('profile-settings');
+        const statusLabel = document.getElementById('status-label');
+        const statusToggle = document.getElementById('status-toggle');
+        const statusToggleKnob = document.getElementById('status-toggle-knob');
         const firstNameInput = document.getElementById('firstName-input');
         const lastNameInput = document.getElementById('lastName-input');
         const colorInput = document.getElementById('color-input');
         const commPrefGroup = document.getElementById('comm-pref-input-group');
         const saveButton = document.getElementById('save-changes-button');
         const successMessage = document.getElementById('success-message');
+
+        const handoffModal = document.getElementById('handoff-modal');
+        const handoffProviderSelect = document.getElementById('handoff-provider-select');
+        const cancelHandoffButton = document.getElementById('cancel-handoff-button');
+        const confirmHandoffButton = document.getElementById('confirm-handoff-button');
+
+        // --- State ---
+        let currentUserData = null;
+        let currentUserRef = null;
 
         const allCommPreferences = {
             'text': 'Text',
@@ -105,26 +157,27 @@
             'pager': 'Pager'
         };
 
-        let currentUser = null;
-
+        // --- Logic ---
         onAuthStateChanged(auth, async (user) => {
             if (user && !user.isAnonymous) {
-                currentUser = user;
-                const userRef = doc(db, 'users', user.uid);
-                const docSnap = await getDoc(userRef);
+                currentUserRef = doc(db, 'users', user.uid);
+                const userDocSnap = await getDoc(currentUserRef);
 
-                if (docSnap.exists()) {
-                    populateProfileForm(docSnap.data());
+                if (userDocSnap.exists()) {
+                    currentUserData = { id: user.uid, ...userDocSnap.data() };
+                    welcomeMessage.textContent = `Welcome, ${currentUserData.firstName} ${currentUserData.lastName}`;
+                    renderStatusToggle(currentUserData.status);
+                    populateProfileForm(currentUserData);
                 } else {
-                    // This case should ideally not happen if profiles are created upon registration
-                    profileContainer.innerHTML = '<p class="text-red-500">Error: Could not find your profile data.</p>';
+                    welcomeMessage.textContent = "Profile not found.";
                 }
+
                 loadingIndicator.classList.add('hidden');
-                profileContainer.classList.remove('hidden');
+                appContent.classList.remove('hidden');
 
             } else {
-                loadingIndicator.classList.add('hidden');
-                loginPrompt.classList.remove('hidden');
+                // Not a logged-in provider, redirect to main page
+                window.location.href = './index.html';
             }
         });
 
@@ -146,7 +199,7 @@
         }
 
         saveButton.addEventListener('click', async () => {
-            if (!currentUser) return;
+            if (!currentUserRef) return;
 
             const selectedPrefs = [];
             commPrefGroup.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
@@ -162,9 +215,8 @@
             saveButton.textContent = 'Saving...';
             successMessage.textContent = '';
 
-            const userRef = doc(db, 'users', currentUser.uid);
             try {
-                await updateDoc(userRef, updatedData);
+                await updateDoc(currentUserRef, updatedData);
                 successMessage.textContent = 'Your profile has been updated successfully!';
                 setTimeout(() => successMessage.textContent = '', 3000);
             } catch (error) {
@@ -173,6 +225,118 @@
             } finally {
                 saveButton.disabled = false;
                 saveButton.textContent = 'Save Changes';
+            }
+        });
+
+        function renderStatusToggle(status) {
+            const isOnDuty = status === 'On Duty';
+            statusLabel.textContent = status;
+            statusToggle.setAttribute('aria-checked', isOnDuty);
+
+            if (isOnDuty) {
+                statusToggle.classList.remove('bg-gray-200');
+                statusToggle.classList.add('bg-blue-600');
+                statusToggleKnob.classList.add('translate-x-5');
+            } else {
+                statusToggle.classList.remove('bg-blue-600');
+                statusToggle.classList.add('bg-gray-200');
+                statusToggleKnob.classList.remove('translate-x-5');
+            }
+        }
+
+        statusToggle.addEventListener('click', async () => {
+            const currentStatus = statusToggle.getAttribute('aria-checked') === 'true' ? 'On Duty' : 'Off Duty';
+            const newStatus = currentStatus === 'On Duty' ? 'Off Duty' : 'On Duty';
+
+            if (newStatus === 'On Duty') {
+                // If switching to On Duty, just update the status
+                await updateDoc(currentUserRef, { status: 'On Duty' });
+                renderStatusToggle('On Duty');
+            } else {
+                // If switching to Off Duty, check for active assignments first
+                const orRoomsRef = collection(db, `artifacts/${appId}/public/data/or_rooms`);
+                const q = query(orRoomsRef, where("anesthesiologist", "==", currentUserData.id));
+                const assignedRoomsSnapshot = await getDocs(q);
+
+                if (assignedRoomsSnapshot.empty) {
+                    // No assigned rooms, just update the status
+                    await updateDoc(currentUserRef, { status: 'Off Duty' });
+                    renderStatusToggle('Off Duty');
+                } else {
+                    // Has assigned rooms, show handoff modal
+                    await populateHandoffModal();
+                    handoffModal.classList.remove('hidden');
+                }
+            }
+        });
+
+        async function populateHandoffModal() {
+            handoffProviderSelect.innerHTML = '<option>Loading...</option>';
+            const usersRef = collection(db, 'users');
+            const q = query(usersRef, where("status", "==", "On Duty"));
+            const snapshot = await getDocs(q);
+
+            let optionsHTML = '';
+            snapshot.forEach(doc => {
+                // Exclude the.                current user from the list of handoff candidates
+                if (doc.id !== currentUserData.id) {
+                    const provider = doc.data();
+                    optionsHTML += `<option value="${doc.id}">${provider.firstName} ${provider.lastName}</option>`;
+                }
+            });
+
+            if (optionsHTML) {
+                handoffProviderSelect.innerHTML = optionsHTML;
+            } else {
+                handoffProviderSelect.innerHTML = '<option value="">No available providers</option>';
+                confirmHandoffButton.disabled = true;
+            }
+        }
+
+        cancelHandoffButton.addEventListener('click', () => {
+            handoffModal.classList.add('hidden');
+            // No status change occurs, so the toggle remains "On Duty"
+        });
+
+        confirmHandoffButton.addEventListener('click', async () => {
+            const selectedProviderId = handoffProviderSelect.value;
+            if (!selectedProviderId) {
+                alert("Please select a provider to hand off to.");
+                return;
+            }
+
+            confirmHandoffButton.disabled = true;
+            confirmHandoffButton.textContent = 'Processing...';
+
+            try {
+                const batch = writeBatch(db);
+
+                // Find all rooms assigned to the current user
+                const orRoomsRef = collection(db, `artifacts/${appId}/public/data/or_rooms`);
+                const q = query(orRoomsRef, where("anesthesiologist", "==", currentUserData.id));
+                const assignedRoomsSnapshot = await getDocs(q);
+
+                // Reassign each room to the selected provider
+                assignedRoomsSnapshot.forEach(roomDoc => {
+                    batch.update(roomDoc.ref, { anesthesiologist: selectedProviderId });
+                });
+
+                // Update the current user's status to Off Duty
+                batch.update(currentUserRef, { status: 'Off Duty' });
+
+                // Commit the batch
+                await batch.commit();
+
+                // Update UI
+                renderStatusToggle('Off Duty');
+                handoffModal.classList.add('hidden');
+
+            } catch (error) {
+                console.error("Handoff failed: ", error);
+                alert("An error occurred during the handoff. Please try again.");
+            } finally {
+                confirmHandoffButton.disabled = false;
+                confirmHandoffButton.textContent = 'Confirm Handoff';
             }
         });
     </script>
