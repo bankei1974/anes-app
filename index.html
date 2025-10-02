@@ -726,17 +726,17 @@
             console.log('populateHandoffModal called.');
             handoffProviderSelect.innerHTML = '<option>Loading...</option>';
             const usersRef = collection(db, 'users');
-            const q = query(usersRef, where("status", "==", "On Duty"));
-            const snapshot = await getDocs(q);
+            // Fetch all users
+            const snapshot = await getDocs(usersRef);
 
-            console.log('Snapshot docs:', snapshot.docs.map(doc => doc.data()));
+            console.log('All users snapshot docs:', snapshot.docs.map(doc => doc.data()));
             console.log('statusCurrentUser.id:', statusCurrentUser.id);
 
             let optionsHTML = '';
             snapshot.forEach(doc => {
-                // Exclude the current user from the list of handoff candidates
-                if (doc.id !== statusCurrentUser.id) {
-                    const provider = doc.data();
+                const provider = doc.data();
+                // Exclude the current user and only include providers who are 'On Duty'
+                if (doc.id !== statusCurrentUser.id && provider.status === 'On Duty') {
                     optionsHTML += `<option value="${doc.id}">${provider.firstName} ${provider.lastName}</option>`;
                 }
             });
