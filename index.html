@@ -444,45 +444,15 @@
 
                 let buttonHTML = '';
                 if (isProviderLoggedIn) {
+                    const isCoveringByCurrentUser = user && coveringUid === user.uid;
+
                     if (isClaimedByCurrentUser) {
                         buttonHTML = `<button data-id="${room.id}" class="unclaim-button mt-1 w-full px-2 py-1 bg-red-600 text-white text-xs font-medium rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-red-500">Unclaim</button>`;
+                    } else if (isCoveringByCurrentUser) {
+                        buttonHTML = `<button data-id="${room.id}" class="unclaim-covering-button mt-1 w-full px-2 py-1 bg-orange-500 text-white text-xs font-medium rounded hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-orange-400">Unclaim Covering</button>`;
                     } else {
                         buttonHTML = `<button data-id="${room.id}" class="claim-button mt-1 w-full px-2 py-1 bg-green-600 text-white text-xs font-medium rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-green-500">Claim</button>`;
-                    }
-                    buttonHTML += `<button data-id="${room.id}" class="claim-covering-button mt-1 w-full px-2 py-1 bg-yellow-500 text-white text-xs font-medium rounded hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-yellow-400">Claim as Covering</button>`;
-                }
-
-                let anesDisplay = `<span style="color: ${textColor === 'black' ? '#9ca3af' : '#d1d5db'}">Available</span>`;
-                if (isClaimed && profile) {
-                    let iconsHTML = '';
-                    if (Array.isArray(profile.communicationPreference)) {
-                        profile.communicationPreference.forEach(pref => {
-                            if (commIcons[pref]) {
-                                const phoneNumber = profile.phoneNumber || '';
-                                if (pref === 'call' || pref === 'text') {
-                                    iconsHTML += commIcons[pref](textColor, phoneNumber);
-                                } else {
-                                    iconsHTML += commIcons[pref](textColor);
-                                }
-                            }
-                        });
-                    }
-                    anesDisplay = `<div class="flex items-center">${escapeHtml(profile.firstName)} ${escapeHtml(profile.lastName)}<span class="flex items-center ml-auto">${iconsHTML}</span></div>`;
-                } else if (isClaimed) {
-                    anesDisplay = 'Unknown User';
-                }
-
-                let coveringProviderDisplay = '';
-                const coveringUid = room.coveringProvider;
-                if (coveringUid && usersCache[coveringUid]) {
-                    const coveringProfile = usersCache[coveringUid];
-                    coveringProviderDisplay = `
-                        <div class="text-xs text-orange-600 font-medium mt-1 pt-1 border-t border-gray-100">
-                            Covering: ${escapeHtml(coveringProfile.firstName)} ${escapeHtml(coveringProfile.lastName)}
-                        </div>
-                    `;
-                    if (user && coveringUid === user.uid) {
-                        buttonHTML += `<button data-id="${room.id}" class="unclaim-covering-button mt-1 w-full px-2 py-1 bg-orange-500 text-white text-xs font-medium rounded hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-orange-400">Unclaim Covering</button>`;
+                        buttonHTML += `<button data-id="${room.id}" class="claim-covering-button mt-1 w-full px-2 py-1 bg-yellow-500 text-white text-xs font-medium rounded hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-yellow-400">Claim as Covering</button>`;
                     }
                 }
 
