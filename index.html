@@ -147,6 +147,7 @@
                     </div>
                     <div id="logged-in-view" class="hidden items-center">
                         <div class="flex items-center mr-4">
+                            <span class="text-sm font-medium text-gray-700 mr-2">On Duty / Off Duty:</span>
                             <span id="status-label" class="text-sm font-medium text-gray-700 mr-2"></span>
                             <button type="button" id="status-toggle" class="relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" role="switch" aria-checked="false">
                                 <span class="sr-only">Use setting</span>
@@ -695,11 +696,12 @@
 
         statusToggle.addEventListener('click', async () => {
             const currentStatus = statusToggle.getAttribute('aria-checked') === 'true' ? 'On Duty' : 'Off Duty';
-            const newStatus = currentStatus === 'On Duty' ? 'Off Duty' : 'On Duty';
+            let newStatus = currentStatus === 'On Duty' ? 'Off Duty' : 'On Duty';
 
             if (newStatus === 'On Duty') {
                 // If switching to On Duty, just update the status
                 await updateDoc(statusCurrentUserRef, { status: 'On Duty' });
+                statusCurrentUser.status = 'On Duty'; // Update local state
                 renderStatusToggle('On Duty');
             } else {
                 // If switching to Off Duty, check for active assignments first
@@ -710,6 +712,7 @@
                 if (assignedRoomsSnapshot.empty) {
                     // No assigned rooms, just update the status
                     await updateDoc(statusCurrentUserRef, { status: 'Off Duty' });
+                    statusCurrentUser.status = 'Off Duty'; // Update local state
                     renderStatusToggle('Off Duty');
                 } else {
                     // Has assigned rooms, show handoff modal
@@ -772,6 +775,7 @@
 
                 // Update the current user's status to Off Duty
                 batch.update(statusCurrentUserRef, { status: 'Off Duty' });
+                statusCurrentUser.status = 'Off Duty'; // Update local state
 
                 // Commit the batch
                 await batch.commit();
