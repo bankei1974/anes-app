@@ -855,10 +855,10 @@
 
         orList.addEventListener('mouseover', (event) => {
             const target = event.target.closest('.comm-icon');
-            if (target && target.dataset.phoneNumber && (target.dataset.commType === 'call' || target.dataset.commType === 'text')) {
-                const phoneNumber = target.dataset.phoneNumber;
-                if (phoneNumber) {
-                    showTooltip(target, phoneNumber);
+            if (target && target.dataset.tooltipText) {
+                const tooltipText = target.dataset.tooltipText;
+                if (tooltipText) {
+                    showTooltip(target, tooltipText);
                 }
             }
         });
