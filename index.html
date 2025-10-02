@@ -448,6 +448,7 @@
                     } else {
                         buttonHTML = `<button data-id="${room.id}" class="claim-button mt-1 w-full px-2 py-1 bg-green-600 text-white text-xs font-medium rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-green-500">Claim</button>`;
                     }
+                    buttonHTML += `<button data-id="${room.id}" class="claim-covering-button mt-1 w-full px-2 py-1 bg-yellow-500 text-white text-xs font-medium rounded hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-yellow-400">Claim as Covering</button>`;
                 }
 
                 let anesDisplay = `<span style="color: ${textColor === 'black' ? '#9ca3af' : '#d1d5db'}">Available</span>`;
@@ -599,6 +600,12 @@
                     await updateDoc(docRef, { anesthesiologist: "" });
                 } catch (error) {
                     console.error("Error unclaiming room: ", error);
+                }
+            } else if (button.classList.contains('claim-covering-button')) {
+                try {
+                    await updateDoc(docRef, { coveringProvider: user.uid });
+                } catch (error) {
+                    console.error("Error claiming as covering provider: ", error);
                 }
             }
         });
