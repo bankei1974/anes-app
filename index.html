@@ -723,10 +723,14 @@
         });
 
         async function populateHandoffModal() {
+            console.log('populateHandoffModal called.');
             handoffProviderSelect.innerHTML = '<option>Loading...</option>';
             const usersRef = collection(db, 'users');
             const q = query(usersRef, where("status", "==", "On Duty"));
             const snapshot = await getDocs(q);
+
+            console.log('Snapshot docs:', snapshot.docs.map(doc => doc.data()));
+            console.log('statusCurrentUser.id:', statusCurrentUser.id);
 
             let optionsHTML = '';
             snapshot.forEach(doc => {
@@ -736,6 +740,8 @@
                     optionsHTML += `<option value="${doc.id}">${provider.firstName} ${provider.lastName}</option>`;
                 }
             });
+
+            console.log('Generated optionsHTML:', optionsHTML);
 
             if (optionsHTML) {
                 handoffProviderSelect.innerHTML = optionsHTML;
