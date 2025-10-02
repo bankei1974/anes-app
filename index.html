@@ -698,26 +698,33 @@
             const currentStatus = statusToggle.getAttribute('aria-checked') === 'true' ? 'On Duty' : 'Off Duty';
             let newStatus = currentStatus === 'On Duty' ? 'Off Duty' : 'On Duty';
 
+            console.log('Toggle clicked. currentStatus:', currentStatus, 'newStatus:', newStatus);
+
             if (newStatus === 'On Duty') {
                 // If switching to On Duty, just update the status
                 await updateDoc(statusCurrentUserRef, { status: 'On Duty' });
                 statusCurrentUser.status = 'On Duty'; // Update local state
                 renderStatusToggle('On Duty');
+                console.log('Switched to On Duty.');
             } else {
                 // If switching to Off Duty, check for active assignments first
                 const orRoomsRef = collection(db, `artifacts/${appId}/public/data/or_rooms`);
                 const q = query(orRoomsRef, where("anesthesiologist", "==", statusCurrentUser.id));
                 const assignedRoomsSnapshot = await getDocs(q);
 
+                console.log('Checking for assigned rooms. statusCurrentUser.id:', statusCurrentUser.id, 'assignedRoomsSnapshot.empty:', assignedRoomsSnapshot.empty);
+
                 if (assignedRoomsSnapshot.empty) {
                     // No assigned rooms, just update the status
                     await updateDoc(statusCurrentUserRef, { status: 'Off Duty' });
                     statusCurrentUser.status = 'Off Duty'; // Update local state
                     renderStatusToggle('Off Duty');
+                    console.log('Switched to Off Duty (no assigned rooms).');
                 } else {
                     // Has assigned rooms, show handoff modal
                     await populateHandoffModal();
                     handoffModal.classList.remove('hidden');
+                    console.log('Assigned rooms found. Showing handoff modal.');
                 }
             }
         });
